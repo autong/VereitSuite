@@ -1,0 +1,67 @@
+!|Scenario            |create new cmmaintenance request                                                                           |
+|add new cmmaintenance request                                                                                                    |
+|select cm record type                                                                                                            |
+|variable             |isbuildinglookup          |equals  to                                                                      |
+|wait  for  element   |{$CMMAINTENANCEINFO.buildinglookup}                                                                        |
+|assert true          |{$isbuildinglookup}                                                                                        |
+|log result           |{$isbuildinglookup}       |with comment|CM Project edit page loaded succesfully|in page|CMProject edit page|
+|type                 |{$building}               |into        |{$CMMAINTENANCEINFO.buildinglookup}    |text field                 |
+|pause  execution  for|3                         |seconds                                                                         |
+|click                |{$CMMAINTENANCEINFO.requestdate}                                                                           |
+|pause  execution  for|3                         |seconds                                                                         |
+|variable             |isStatusDropdownPresent   |equals  to                                                                      |
+|wait  for  element   |{$CMMAINTENANCEINFO.status}                                                                                |
+|assert true          |{$isStatusDropdownPresent}                                                                                 |
+|log result           |{$isStatusDropdownPresent}|with comment|Status Dropdown is present             |in page|CMProject page     |
+|select               |{$status}                 |from        |{$CMMAINTENANCEINFO.status}                                        |
+|pause  execution  for|3                         |seconds                                                                         |
+|select               |{$contractagreementtype}  |from        |{$CMMAINTENANCEINFO.contractagreementtype}                         |
+|pause  execution  for|4                         |seconds                                                                         |
+|type                 |{$estimated}              |into        |{$CMMAINTENANCEINFO.estimated}         |text field                 |
+|pause  execution  for|3                         |seconds                                                                         |
+|select               |Yes                       |from        |//label[text()='Reimbursable?']/../../td[4]/div/span/select        |
+|select maintenance request approvers                                                                                             |
+|save the project                                                                                                                 |
+
+!|Scenario            |select maintenance request approvers                         |
+|type                 |{$consopsmgr}|into|{$MAINTCONTACTS.consopsmanager} |text area|
+|pause  execution  for|2            |seconds                                        |
+|type                 |{$propmgr}   |into|{$MAINTCONTACTS.propertymanager}|text area|
+|pause  execution  for|2            |seconds                                        |
+|type                 |{$assetmgr}  |into|{$MAINTCONTACTS.assetmanager}   |text area|
+|pause  execution  for|2            |seconds                                        |
+
+!|Scenario            |generate bid                                      |
+|verify bid columns                                                      |
+|click                |{$CMPROJECTTOPBUTTONROW.generatebidsubmitapproval}|
+|pause  execution  for|15                    |seconds                    |
+
+!|Scenario            |reject the bid                                                                                        |
+|click                |.//a[text()='Approve / Reject']                                                                       |
+|pause  execution  for|3                      |seconds                                                                       |
+|type                 |Rejected the bid       |into        |.//*[@id='Comments']                     |text area              |
+|pause  execution  for|5                      |seconds                                                                       |
+|click                |.//input[@title='Reject']                                                                             |
+|pause  execution  for|3                      |seconds                                                                       |
+|variable             |statusdenied           |equals  to                                                                    |
+|verify page contains |.//div[text()='Denied']|element                                                                       |
+|assert true          |{$statusdenied}                                                                                       |
+|log result           |{$statusdenied}        |with comment|bid approval status for project is denied|in page|CM Project page|
+|logout users                                                                                                                |
+
+!|Scenario               |verify email to construction manager                                                                                                                                                          |
+|start browser           |${defaultBrowser}                                                                                                                                                                             |
+|open URL                |http://webmail.vereit.com                                                                                                                                                                     |
+|pause  execution  for   |10                                                                                      |seconds                                                                                              |
+|type                    |shbhatt@vereit.com                                                                      |into        |.//input[@id='userNameInput']                                          |text field      |
+|pause  execution  for   |5                                                                                       |seconds                                                                                              |
+|type                    |Welcome1                                                                                |into        |.//input[@id='passwordInput']                                          |text field      |
+|pause  execution  for   |5                                                                                       |seconds                                                                                              |
+|click                   |//span[@id='submitButton']                                                                                                                                                                    |
+|pause  execution  for   |10                                                                                      |seconds                                                                                              |
+|variable                |isemailnotpresent                                                                       |equals  to                                                                                           |
+|verify page not contains|//span[contains(text(),'Sandbox: Bid Approval: Project - {$cmprojecttitledescription}')]|element                                                                                              |
+|assert true             |{$isemailnotpresent}                                                                                                                                                                          |
+|log result              |{$isemailnotpresent}                                                                    |with comment|no approve/reject email to construction manager for maintenance project|in page|mail box|
+|close browser                                                                                                                                                                                                          |
+

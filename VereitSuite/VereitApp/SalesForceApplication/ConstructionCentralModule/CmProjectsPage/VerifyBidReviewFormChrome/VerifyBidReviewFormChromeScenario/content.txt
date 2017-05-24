@@ -1,0 +1,40 @@
+!|Scenario                  |read bid review form                                                                                                                                      |
+|variable                   |isbidformpresent                                          |equals  to                                                                                     |
+|verify page contains       |//a[starts-with(text(),'BID') and contains(text(),'.pdf')]|element                                                                                        |
+|assert true                |{$isbidformpresent}                                                                                                                                       |
+|log result                 |{$isbidformpresent}                                       |with comment  |Bid Review form is present                              |in page|email          |
+|If                         |{$isbidformpresent}                                                                                                                                       |
+|click                      |//a[starts-with(text(),'BID') and contains(text(),'.pdf')]                                                                                                |
+|pause  execution  for      |10                                                        |seconds                                                                                        |
+|select  window  number     |2                                                                                                                                                         |
+|type                       |shridevibhat@indecomm.net.stage                           |into          |//input[@id='username']                                 |text field             |
+|pause  execution  for      |2                                                         |seconds                                                                                        |
+|type                       |welcome                                                   |into          |//input[@id='password']                                 |text field             |
+|pause  execution  for      |2                                                         |seconds                                                                                        |
+|click                      |//input[@id='Login']                                                                                                                                      |
+|pause  execution  for      |10                                                        |seconds                                                                                        |
+|get the bid review form pdf name                                                                                                                                                      |
+|show                       |evaluate                                                  |{$pdffilename}|                                                                                |
+|load  p d f  document  from|C:\\Users\\Shridevi.Bhat\\Downloads\\{$pdffilename}.pdf                                                                                                   |
+|variable                   |ispropmgrpresent                                          |equals  to                                                                                     |
+|verify  whether            |Indecomm PropMgr                                          |is  present  in  p d f                                                                         |
+|assert true                |{$ispropmgrpresent}                                                                                                                                       |
+|log result                 |{$ispropmgrpresent}                                       |with comment  |Property manager section is filled with Indecomm PropMgr|in page|Bid Review Form|
+|variable                   |isvendor                                                  |equals  to                                                                                     |
+|verify  whether            |IndeVendor                                                |is  present  in  p d f                                                                         |
+|assert true                |{$isvendor}                                                                                                                                               |
+|log result                 |{$isvendor}                                               |with comment  |Vendor section is filled with IndeVendor                |in page|Bid Review Form|
+|unload  p d f  document                                                                                                                                                               |
+|close  window  number      |2                                                                                                                                                         |
+|pause  execution  for      |5                                                         |seconds                                                                                        |
+|select  window  number     |1                                                                                                                                                         |
+|End If                                                                                                                                                                                |
+|close browser                                                                                                                                                                         |
+
+!|Scenario                 |get the bid review form pdf name|
+|variable                  |currentdate   |equals  to       |
+|get current date in format|M_d_yyyy                        |
+|show                      |evaluate      |{$currentdate}   |
+|variable                  |pdffilename   |equals  to       |
+|evaluate                  |BID {$currentdate}              |
+|show                      |evaluate      |{$pdffilename}   |

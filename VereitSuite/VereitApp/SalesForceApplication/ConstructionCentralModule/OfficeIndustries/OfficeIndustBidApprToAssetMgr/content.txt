@@ -1,0 +1,30 @@
+|import                          |
+|net.indecomm.autong.api.fitnesse|
+
+
+!include -c <VereitSuite.VereitCommonFiles 
+!include -c <VereitSuite.VereitApp.SalesForceApplication.ConstructionCentralModule.CmProjectsPage.CmProjectsObjectRepository
+!include -c <VereitSuite.VereitApp.SalesForceApplication.ConstructionCentralModule.CmProjectsPage.CmProjectsScenarios
+!include -c <VereitSuite.VereitApp.SalesForceApplication.ConstructionCentralModule.CmProjectsPage.CmProjectsImplementation
+!include -c <VereitSuite.VereitApp.SalesForceApplication.ConstructionCentralModule.BidsPage.BidsScenarios
+!include -c <VereitSuite.VereitApp.SalesForceApplication.ConstructionCentralModule.BidsPage.BidsImplementation
+!include -c <VereitSuite.VereitApp.SalesForceApplication.ConstructionCentralModule.BidsPage.BidsObjectRepository
+!include -c <VereitSuite.VereitApp.SalesForceApplication.ConstructionCentralModule.ConstructionCentralHome.ConstructionCentralHomeScenarios
+!include -c <VereitSuite.VereitApp.SalesForceApplication.ConstructionCentralModule.ConstructionCentralHome.ConstructionCentralHomeRepository
+!include -c <VereitSuite.VereitApp.SalesForceApplication.ConstructionCentralModule.ConstructionCentralHome.ConstructionCentralHomeImplementation
+
+!|Script                               |AutomationNG                                       |
+|set test                              |${PAGE_NAME}                                       |
+|set suite path                        |${PAGE_PATH}                                       |
+|initialize test setup with result name|${PAGE_NAME}_${defaultBrowser}                     |
+|login to the Vereit module            |${admin}                                           |
+|select application                    |Construction Central|and verify the tab|CM Projects|
+|create new cm project request         |industrial                                         |
+|create bids for cmproject             |thirtythousand                                     |
+|generate bid and submit for approval                                                      |
+|approve by                            |constructionmanager                                |
+|approve by                            |propertymanager                                    |
+|approve by                            |assetmanager                                       |
+|verify approval status is approved                                                        |
+|close browser                                                                             |
+|end result                                                                                |

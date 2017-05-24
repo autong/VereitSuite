@@ -1,0 +1,22 @@
+|import                          |
+|net.indecomm.autong.api.fitnesse|
+!include -c <VereitSuite.VereitCommonFiles 
+!include -c <VereitSuite.VereitApp.SalesForceApplication.RiskCentralModule.ClaimCreation.RiskCentralObjectRepository
+!include -c <VereitSuite.VereitApp.SalesForceApplication.RiskCentralModule.ClaimCreation.RiskCentralScenarios
+
+!|Script                               |AutomationNG                  |
+|set test                              |${PAGE_NAME}                  |
+|set suite path                        |${PAGE_PATH}                  |
+|initialize test setup with result name|${PAGE_NAME}_${defaultBrowser}|
+|login to the Vereit module            |riskcentral                     |
+|create new claim                      |glbi                          |
+|check and fill claim information page                                |
+|check and fill claimant information page                             |
+|check and fill Third party manager                                   |
+|check and fill police information page                               |
+|check and fill medical information page                              |
+|check and fill information for        |1           |witness          |
+|submit and upload attachment                                         |
+|login to webmail and verify the claim email                          |
+|end result                                                           |
+

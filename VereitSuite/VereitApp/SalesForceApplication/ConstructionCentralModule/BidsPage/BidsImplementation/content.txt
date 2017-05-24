@@ -1,0 +1,32 @@
+!|Scenario|get the number of bids|sheetname                                                   |
+|load     |@sheetname            |excel sheet from|{$DATASHEET.cmprojectsbiddata}|in|read|Mode|
+|variable |rowNumber             |equals  to                                                  |
+|evaluate |2                                                                                  |
+|variable |rows                  |equals  to                                                  |
+|retrieve row counts from sheet                                                               |
+|evaluate |{$rows}                                                                            |
+|variable |rowcount              |equals  to                                                  |
+|evaluate |'{$rows}-1'                                                                        |
+|show     |evaluate              |{$rows}                                                      |
+|unload  excel sheet                                                                          |
+
+!|Scenario      |associate bid to cmproject|sheetname                                                   |
+|load           |@sheetname                |excel sheet from|{$DATASHEET.cmprojectsbiddata}|in|read|Mode|
+|show           |evaluate                  |{$rowcount}                                                 |
+|loop           |{$rowcount}               |times                                                       |
+|variable       |bidbidname                |equals to                                                   |
+|getFromExcelRow|{$rowNumber}              |Column          |1                                          |
+|variable       |bidcontactname            |equals to                                                   |
+|getFromExcelRow|{$rowNumber}              |Column          |2                                          |
+|variable       |bidbidamount              |equals to                                                   |
+|getFromExcelRow|{$rowNumber}              |Column          |3                                          |
+|variable       |bidcomments               |equals to                                                   |
+|getFromExcelRow|{$rowNumber}              |Column          |4                                          |
+|variable       |bidvendor                 |equals to                                                   |
+|getFromExcelRow|{$rowNumber}              |Column          |5                                          |
+|navigate to bid creation                                                                               |
+|variable       |rowNumber                 |equals  to                                                  |
+|evaluate       |'{$rowNumber}+1'                                                                       |
+|end  loop                                                                                              |
+|unload  excel sheet                                                                                    |
+

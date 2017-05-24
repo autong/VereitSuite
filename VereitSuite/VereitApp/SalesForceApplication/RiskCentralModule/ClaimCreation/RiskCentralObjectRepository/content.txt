@@ -1,0 +1,143 @@
+!contents -R2 -g -p -f -h
+''' Risk central object Repository '''
+|Object Repository  |RISKCENTRAL                                                               |
+|id                 |value                                                               |type |
+|newclaim           |//a[contains(text(),'Create New Claim')]                            |xpath|
+|glbiclaim          |(//strong/input)[1]                                                 |xpath|
+|glpdclaim          |(//strong/input)[2]                                                 |xpath|
+|propclaim          |(//strong/input)[3]                                                 |xpath|
+|glbititle          |//label[contains(text(),'GLBI - General Liability Bodily Injury')]  |xpath|
+|glpdtitle          |//label[contains(text(),'GLPD - General Liability Property Damage')]|xpath|
+|proptitle          |//label[contains(text(),'PROP - Property Damage')]                  |xpath|
+|locationlookup     |//label[contains(text(),'Location')]/a                              |xpath|
+|textsearch         |//input[@id='j_id0:j_id2:j_id28:criteria:txtSearch']                |xpath|
+|buttonsearch       |//input[@id='j_id0:j_id2:j_id28:criteria:btnGo']                    |xpath|
+|searchresultone    |//td[@id='j_id0:j_id2:j_id28:criteria:namelist:0:j_id30']/a         |xpath|
+|searchresulttwo    |//td[@id='j_id0:j_id2:j_id28:criteria:namelist:1:j_id30']/a         |xpath|
+|searchresultthree  |//td[@id='j_id0:j_id2:j_id28:criteria:namelist:2:j_id30']/a         |xpath|
+|datelink           |//span[@class='dateFormat']/a                                       |xpath|
+|accidentdescription|//textarea                                                          |xpath|
+|saveandcontinue    |//input[@title='Save & Continue']                                   |xpath|
+|location           |//label[contains(text(),'Location')]                                |xpath|
+|dateofloss         |//label[contains(text(),'Date of Loss')]                            |xpath|
+|accientinfo        |//label[contains(text(),'Accident Description')]                    |xpath|
+
+|Object Repository |CLAIMANTINFO                                                   |
+|id                |value                                                    |type |
+|claimantfirstname |//label[contains(text(),'Claimant First Name')]          |xpath|
+|claimantlastname  |//label[contains(text(),'Claimant Last Name')]           |xpath|
+|claimantaddressone|//label[contains(text(),'Claimant Address Line 1')]      |xpath|
+|claimantaddresstwo|//label[contains(text(),'Claimant Address Line 2')]      |xpath|
+|claimantcity      |//label[contains(text(),'Claimant City')]                |xpath|
+|claimantstate     |//label[contains(text(),'Claimant State')]               |xpath|
+|claimantpostalcode|//label[contains(text(),'Claimant Postal Code')]         |xpath|
+|claimanthomephone |//label[contains(text(),'Claimant Home Phone')]          |xpath|
+|claimantworkphone |//label[contains(text(),'Claimant Work Phone')]          |xpath|
+|claimantgender    |//label[contains(text(),'Claimant Gender')]              |xpath|
+|claimantinfo      |//label[contains(text(),'Claimant Information Comments')]|xpath|
+|firstnameinput    |//input[contains(@id,'id77')]                            |xpath|
+|lastnameinput     |//input[contains(@id,'id80')]                            |xpath|
+|addressinput      |//input[contains(@id,'id83')]                            |xpath|
+|cityinput         |//input[contains(@id,'id89')]                            |xpath|
+|infoinput         |//textarea[contains(@id,'id107')]                        |xpath|
+|genderselect      |//select[contains(@id,'id92')]                           |xpath|
+|stateselect       |//select[contains(@id,'id104')]                          |xpath|
+
+|Object Repository|THIRDPARTYMANAGER                                            |
+|id               |value                                                  |type |
+|pmanagerfirstname|//label[contains(text(),'Property Manager First Name')]|xpath|
+|pmlastname       |//label[contains(text(),'Property Manager Last Name')] |xpath|
+|pmphone          |//label[contains(text(),'Property Manager Phone #')]   |xpath|
+|pmemail          |//label[contains(text(),'Property Manager Email ')]    |xpath|
+|pmcomment        |//label[contains(text(),'Property Manager Comments')]  |xpath|
+|firstname        |//input[contains(@id,'id113')]                         |xpath|
+|lastname         |//input[contains(@id,'id116')]                         |xpath|
+|phone            |//input[contains(@id,'id119')]                         |xpath|
+|email            |//input[contains(@id,'id122')]                         |xpath|
+|comment          |//textarea[contains(@id,'id125')]                      |xpath|
+
+
+|Object Repository   |POLICEINFO                                          |
+|id                  |value                                         |type |
+|policeagencyname    |//label[contains(text(),'Police Agency Name')]|xpath|
+|policereport        |//label[contains(text(),'Police Report #')]   |xpath|
+|policephone         |//label[contains(text(),'Police Phone #')]    |xpath|
+|policecomments      |//label[contains(text(),'Police Comments')]   |xpath|
+|policeagencynametext|//input[contains(@id,'id131')]                |xpath|
+|policereporttext    |//input[contains(@id,'id134')]                |xpath|
+|policephonetext     |//input[contains(@id,'id137')]                |xpath|
+|policecommentstext  |//textarea[contains(@id,'id140')]             |xpath|
+
+
+|Object Repository       |HEALTHCAREINFO                                                      |
+|id                      |value                                                         |type |
+|hcfacilityname          |//label[contains(text(),'Healthcare Facility Name')]          |xpath|
+|hcfacilityaddressone    |//label[contains(text(),'Healthcare Facility Address Line 1')]|xpath|
+|hcfacilityaddresstwo    |//label[contains(text(),'Healthcare Facility Address Line 1')]|xpath|
+|hcfacilitycity          |//label[contains(text(),'Healthcare Facility City')]          |xpath|
+|hcfacilitystate         |//label[contains(text(),'Healthcare Facility State')]         |xpath|
+|hcfacilitypostalcode    |//label[contains(text(),'Healthcare Facility Postal Code')]   |xpath|
+|hcfacilityphone         |//label[contains(text(),'Healthcare Facility Phone')]         |xpath|
+|hcfacilitynametext      |//input[contains(@id,'id146')]                                |xpath|
+|hcfacilityaddressonetext|//input[contains(@id,'id149')]                                |xpath|
+|hcfacilityaddresstwotext|//input[contains(@id,'id152')]                                |xpath|
+|hcfacilitycitytext      |//input[contains(@id,'id155')]                                |xpath|
+|hcfacilitypostalcodetext|//input[contains(@id,'id161')]                                |xpath|
+|hcfacilityphonetext     |//input[contains(@id,'id164')]                                |xpath|
+|hcfacilitystatetext     |//select[contains(@id,'id158')]                               |xpath|
+|saveandcontinue         |//input[@value='Save & Continue']                             |xpath|
+
+
+
+|Object Repository      |WITNESSINFO                                                                                                  |
+|id                     |value                                                                                                  |type |
+|checkforwitness        |//label[contains(text(),'Do you want to add Witness(es)')]                                             |xpath|
+|yes                    |//input[@title='Yes']                                                                                  |xpath|
+|no                     |//input[@title='No']                                                                                   |xpath|
+|firstname              |//label[contains(text(),'First Name')]                                                                 |xpath|
+|lastname               |//label[contains(text(),'Last Name')]                                                                  |xpath|
+|address                |//label[contains(text(),'Address')]                                                                    |xpath|
+|addresslinetwo         |//label[contains(text(),'Address Line 2 ')]                                                            |xpath|
+|city                   |//label[contains(text(),'City')]                                                                       |xpath|
+|state                  |//label[contains(text(),'State')]                                                                      |xpath|
+|postalcode             |//label[contains(text(),'Postal Code')]                                                                |xpath|
+|country                |//label[contains(text(),'Country')]                                                                    |xpath|
+|homephone              |//label[contains(text(),'Home Phone')]                                                                 |xpath|
+|workphone              |//label[contains(text(),'Work Phone')]                                                                 |xpath|
+|workphoneextension     |//label[contains(text(),'Work Phone Extension')]                                                       |xpath|
+|infoone                |//label[contains(text(),'Please review all preceding sections before clicking the Save button below.')]|xpath|
+|infotwo                |//label[contains(text(),'You will be unable to change your provided answers once Save is clicked.')]   |xpath|
+|firstnametext          |//input[contains(@id,'id176')]                                                                         |xpath|
+|lastnametext           |//input[contains(@id,'id179')]                                                                         |xpath|
+|addressonetext         |//input[contains(@id,'id182')]                                                                         |xpath|
+|addresstwotext         |//input[contains(@id,'id185')]                                                                         |xpath|
+|citytext               |//input[contains(@id,'id188')]                                                                         |xpath|
+|postalcodetext         |//input[contains(@id,'id194')]                                                                         |xpath|
+|homephonetext          |//input[contains(@id,'id200')]                                                                         |xpath|
+|workphonetext          |//input[contains(@id,'id203')]                                                                         |xpath|
+|workphoneextenstiontext|//input[contains(@id,'id203')]                                                                         |xpath|
+|saveandcreateclaim     |//input[@value='Save and Create Claim']                                                                |xpath|
+|addwitness             |//input[@value='Add Witness(es)']                                                                      |xpath|
+|continue               |//input[@value='Continue']                                                                             |xpath|
+
+
+|Object Repository|SUBMIT                                                                                                                                                                                      |
+|id               |value                                                                                                                                                                                 |type |
+|titleone         |//h2[contains(text(),'Upload Attachments')]                                                                                                                                           |xpath|
+|titletwo         |//h2[contains(text(),'Existing Attachments')]                                                                                                                                         |xpath|
+|infoone          |//label[contains(text(),' 1. Select the File(Click the Choose File button to find the file).')]                                                                                       |xpath|
+|infotwo          |//label[contains(text(),' 2. Click the Upload Attachment button.Repeat steps 1 and 2 to attach multiple files( When the upload is complete the file information will appear below).')]|xpath|
+|infothree        |//label[contains(text(),' 3. Click the Done button to return to the Claim page(This will cancel an in-progress upload).')]                                                            |xpath|
+|done             |//input[@value='Done']                                                                                                                                                                |xpath|
+|descriptiontxt   |//input[@name='j_id0:j_id2:j_id28:j_id229:j_id230:j_id231:0:j_id242']                                                                                                                 |xpath|
+|browsebutton     |//input[@id='j_id0:j_id2:j_id28:j_id229:j_id230:j_id231:0:j_id234']                                                                                                                   |xpath|
+|claimnumber      |//div[@class='bPageTitle']//h2                                                                                                                                                        |xpath|
+|uploadattachment |//input[@value='Upload Attachment']                                                                                                                                                   |xpath|
+
+|Object Repository|MAIL                                                                     |
+|id               |value                                                              |type |
+|userNameinput    |//input[@id='userNameInput']                                       |xpath|
+|passwordinput    |//input[@id='passwordInput']                                       |xpath|
+|submitbutton     |//span[@id='submitButton']                                         |xpath|
+|claimmail        |(//span[contains(text(),'Sandbox: New Claim has been created')])[1]|xpath|
+|clickmail        |//div[@autoid='_lvv_9']//div[contains(@id,'_ariaId')][1]/div[2]    |xpath|

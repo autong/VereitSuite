@@ -1,0 +1,87 @@
+!|Scenario                           |select cm record type                                        |
+|click                               |{$HOMETABS.cmprojecttab}                                     |
+|pause  execution  for               |5                         |seconds                           |
+|verifyassertelement                 |{$CREATENEWCMPROJECT.newbutton}                              |
+|log result for element  with comment|New Button is present     |in page|CM Project - Home page    |
+|click                               |{$CREATENEWCMPROJECT.newbutton}                              |
+|pause  execution  for               |4                         |seconds                           |
+|select                              |{$recordtype}             |from   |{$CMRECORDINFO.recordtype}|
+|pause  execution  for               |3                         |seconds                           |
+|verifyassertelement                 |{$SELECTCMPROJECTTYPE.continuebtn}                           |
+|log result for element  with comment|Continue Button is present|in page|CM Project - Home page    |
+|click                               |{$SELECTCMPROJECTTYPE.continuebtn}                           |
+|pause  execution  for               |3                         |seconds                           |
+
+!|Scenario            |save the project                                                                                           |
+|variable             |isSaveButtonPresent           |equals  to                                                                  |
+|wait  for  element   |{$CMPROJECTSAVE.savebutton}                                                                                |
+|assert true          |{$isSaveButtonPresent}                                                                                     |
+|log result           |{$isSaveButtonPresent}        |with comment|Save Button is present                 |in page|CMProject page |
+|click                |{$CMPROJECTSAVE.savebutton}                                                                                |
+|pause  execution  for|4                             |seconds                                                                     |
+|variable             |cmprojecttitledescription     |equals  to                                                                  |
+|get  text  from      |//h2[@class='pageDescription']                                                                             |
+|variable             |iscmprojecttitledescription   |equals  to                                                                  |
+|verify page contains |{$cmprojecttitledescription}  |text                                                                        |
+|assert true          |{$iscmprojecttitledescription}                                                                             |
+|log result           |{$iscmprojecttitledescription}|with comment|CM Project request created successfully|in page|CM Project page|
+
+!|Scenario            |select the approvers                                    |
+|type                 |{$consopsmgr}|into|{$CONTACTS.consopsmanager} |text area|
+|pause  execution  for|2            |seconds                                   |
+|type                 |{$propmgr}   |into|{$CONTACTS.propertymanager}|text area|
+|pause  execution  for|2            |seconds                                   |
+|type                 |{$assetmgr}  |into|{$CONTACTS.assetmanager}   |text area|
+|pause  execution  for|2            |seconds                                   |
+
+!|Scenario            |verify error msg on empty required field                                          |
+|click                |.//a[text()='CM Projects']                                                        |
+|pause  execution  for|5             |seconds                                                            |
+|click                |.//th[text()='Project Name']/../../tr[2]/th/a                                     |
+|pause  execution  for|5             |seconds                                                            |
+|click                |.//input[@title='New Bid']                                                        |
+|pause  execution  for|5             |seconds                                                            |
+|type                 |kk vendor 1   |into        |{$BIDEDIT.vendortbox}           |text field           |
+|pause  execution  for|3             |seconds                                                            |
+|type                 |15000         |into        |{$BIDEDIT.bidamounttbox}        |text field           |
+|pause  execution  for|3             |seconds                                                            |
+|click                |{$BIDEDIT.savebtn}                                                                |
+|pause  execution  for|6             |seconds                                                            |
+|variable             |errormsg1     |equals  to                                                         |
+|get  text  from      |.//div[@class='errorMsg']                                                         |
+|variable             |iserrormsg1   |equals  to                                                         |
+|assert               |{$errormsg1}  |equals      |Error: You must enter a value                         |
+|log result           |{$iserrormsg1}|with comment|error msg You must enter a value|in page|Bid edit page|
+|click                |(.//input[@title='Cancel'])[1]                                                    |
+|pause  execution  for|4             |seconds                                                            |
+
+!|Scenario            |verify error msg on special characters for building name                                           |
+|click                |(.//input[@title='Edit'])[1]                                                                       |
+|pause  execution  for|3             |seconds                                                                             |
+|click                |(.//span[@class='lookupInput'])[1]/input                                                           |
+|clear  text          |(.//span[@class='lookupInput'])[1]/input                                                           |
+|type                 |@#$%^&*       |into        |(.//span[@class='lookupInput'])[1]/input|text field                    |
+|click                |(.//input[@title='Save'])[1]                                                                       |
+|pause  execution  for|5             |seconds                                                                             |
+|variable             |errormsg2     |equals  to                                                                          |
+|get  text  from      |.//div[@class='errorMsg']                                                                          |
+|variable             |iserrormsg2   |equals  to                                                                          |
+|assert               |{$errormsg2}  |equals      |Error: No matches found.                                               |
+|log result           |{$iserrormsg2}|with comment|error msg No matches found              |in page|CM project - edit page|
+|click                |(.//input[@title='Cancel'])[1]                                                                     |
+|pause  execution  for|4             |seconds                                                                             |
+
+!|Scenario            |select approved project                                                                                                      |
+|click                |//a[text()='CM Projects']                                                                                                    |
+|pause  execution  for|6                                                             |seconds                                                       |
+|variable             |isapprovedprojectpresent                                      |equals  to                                                    |
+|verify page contains |(//a[starts-with(text(),'2017')]/../../td[contains(text(),'In Progress')])[1]                               |element                                                       |
+|If                   |{$isapprovedprojectpresent}                                                                                                  |
+|click                |(//td[text()='In Progress']/../th/a[starts-with(text(),'2017')])[1]                                                                                      |
+|pause  execution  for|5                                                             |seconds                                                       |
+|variable             |isprojectapproved                                             |equals  to                                                    |
+|verify page contains |//td[text()='Approval Status']/../td[4]/div[text()='Approved']|element                                                       |
+|assert true          |{$isprojectapproved}                                                                                                         |
+|log result           |{$isprojectapproved}                                          |with comment|selected approved project|in page|CM project page|
+|End If                                                                                                                                             |
+

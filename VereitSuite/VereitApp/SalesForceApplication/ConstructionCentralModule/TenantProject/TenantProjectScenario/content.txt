@@ -1,0 +1,54 @@
+!|Scenario            |create new tenant project                                                                                                              |
+|add new tenant project                                                                                                                                       |
+|select cm record type                                                                                                                                        |
+|variable             |isbuildinglookup                      |equals  to                                                                                      |
+|wait  for  element   |{$CMPROJECTINFO.buildinglookup}                                                                                                        |
+|assert true          |{$isbuildinglookup}                                                                                                                    |
+|log result           |{$isbuildinglookup}                   |with comment|CM Project edit page loaded succesfully                |in page|CMProject edit page|
+|type                 |{$building}                           |into        |{$CMPROJECTINFO.buildinglookup}                        |text field                 |
+|pause  execution  for|3                                     |seconds                                                                                         |
+|variable             |isStatusDropdownPresent               |equals  to                                                                                      |
+|wait  for  element   |{$CMPROJECTINFO.status}                                                                                                                |
+|assert true          |{$isStatusDropdownPresent}                                                                                                             |
+|log result           |{$isStatusDropdownPresent}            |with comment|Status Dropdown is present                             |in page|CMProject page     |
+|select               |{$status}                             |from        |{$CMPROJECTINFO.status}                                                            |
+|pause  execution  for|3                                     |seconds                                                                                         |
+|variable             |isWorkTypeDropdownPresent             |equals  to                                                                                      |
+|verify page contains |{$CMPROJECTINFO.worktype}             |element                                                                                         |
+|assert true          |{$isWorkTypeDropdownPresent}                                                                                                           |
+|select               |{$worktype}                           |from        |{$CMPROJECTINFO.worktype}                                                          |
+|pause  execution  for|3                                     |seconds                                                                                         |
+|type                 |{$budgetyear}                         |into        |.//label[text()='Budget Year']/../../../td[4]/div/input|text field                 |
+|pause  execution  for|3                                     |seconds                                                                                         |
+|variable             |isTaskDropdownPresent                 |equals  to                                                                                      |
+|wait  for  element   |{$CMPROJECTINFO.task}                                                                                                                  |
+|select               |{$task}                               |from        |{$CMPROJECTINFO.task}                                                              |
+|pause  execution  for|3                                     |seconds                                                                                         |
+|variable             |isCategoryDropdownPresent             |equals  to                                                                                      |
+|wait  for  element   |{$CMPROJECTINFO.category}                                                                                                              |
+|select               |{$category}                           |from        |{$CMPROJECTINFO.category}                                                          |
+|variable             |isOriginationDropdownPresent          |equals  to                                                                                      |
+|wait  for  element   |{$CMPROJECTINFO.origination}                                                                                                           |
+|select               |{$origination}                        |from        |{$CMPROJECTINFO.origination}                                                       |
+|pause  execution  for|3                                     |seconds                                                                                         |
+|variable             |isContractAgreementTypeDropdownPresent|equals  to                                                                                      |
+|wait  for  element   |{$CMPROJECTINFO.contractagreementtype}                                                                                                 |
+|select               |{$contractagreementtype}              |from        |{$CMPROJECTINFO.contractagreementtype}                                             |
+|pause  execution  for|4                                     |seconds                                                                                         |
+|variable             |isLendorApproval                      |equals  to                                                                                      |
+|wait  for  element   |{$CMPROJECTINFO.lendorapproval}                                                                                                        |
+|select               |{$lendorapproval}                     |from        |{$CMPROJECTINFO.lendorapproval}                                                    |
+|pause  execution  for|4                                     |seconds                                                                                         |
+|type                 |{$estimated}                          |into        |{$FINANCIALS.estimated}                                |text field                 |
+|pause  execution  for|3                                     |seconds                                                                                         |
+|select the approvers                                                                                                                                         |
+|save the project                                                                                                                                             |
+
+!|Scenario               |verify bid section                                                                                        |
+|scroll to               |{$TENANTPROJECT.systeminfo}                                                                               |
+|wait  for  element      |{$TENANTPROJECT.editbtn}                                                                                  |
+|variable                |isBidSection              |equals  to                                                                     |
+|verify page not contains|{$TENANTPROJECT.newbidbtn}|element                                                                        |
+|show                    |evaluate                  |{$isBidSection}                                                                |
+|assert true             |{$isBidSection}                                                                                           |
+|log result              |{$isBidSection}           |with comment|Bid section not present for Tenant project|in page|CM Project page|

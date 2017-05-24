@@ -1,0 +1,16 @@
+|Object Repository|VENDOR                                         |
+|id               |value                                    |type |
+|name             |//span[text()='Vendor']/../../td[4]/div/a|xpath|
+|vendortab        |//a[text()='Vendors']                    |xpath|
+|newbtn           |//input[@name='new']                     |xpath|
+|savebtn          |(//input[@title='Save'])[1]              |xpath|
+|cmprojvendorname |//h2[contains(text(),'IndeVendor')]      |xpath|
+
+|Object Repository|VENDOREDIT                                                    |
+|id               |value                                                   |type |
+|name             |//input[@id='Name']                                     |xpath|
+|status           |//label[text()='Status']/../../td[2]/span/select        |xpath|
+|contact          |//label[text()='Primary Phone Number']/../../td[2]/input|xpath|
+|address          |//label[text()='Address']/../../td[4]/input             |xpath|
+|city             |//label[text()='City']/../../td[4]/input                |xpath|
+|zipcode          |//label[text()='Zip']/../../td[4]/input                 |xpath|

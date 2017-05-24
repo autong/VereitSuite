@@ -1,0 +1,97 @@
+!|Scenario                  |reject by|manager    |
+|login to webmail and verify the rejected email   |
+|reject through email                             |
+|verify request submitted by|@manager |is rejected|
+
+!|Scenario            |login to webmail and verify the rejected email                                              |
+|start browser        |${defaultBrowser}                                                                           |
+|pause  execution  for|5                 |seconds                                                                  |
+|open URL             |http://webmail.vereit.com                                                                   |
+|pause  execution  for|10                |seconds                                                                  |
+|type                 |shbhatt@vereit.com|into        |//input[@id='userNameInput']         |text field            |
+|pause  execution  for|1                 |seconds                                                                  |
+|type                 |Welcome1          |into        |//input[@id='passwordInput']         |text field            |
+|pause  execution  for|5                 |seconds                                                                  |
+|click                |//span[@id='submitButton']                                                                  |
+|pause  execution  for|20                |seconds                                                                  |
+|variable             |islogin           |equals  to                                                               |
+|wait  for  element   |//span[text()='Office 365']                                                                 |
+|log result           |{$islogin}        |with comment|login to vereit webmail is successful|in page|Vereit webmail|
+
+!|Scenario                          |reject through email                                                                                           |
+|pause  execution  for              |20                        |seconds                                                                             |
+|verifyassertelement                |{$VEREITMAIL.bidapprmail}                                                                                      |
+|log result for element with comment|Received Bid approval mail|in Page|Vereit webmail                                                              |
+|click                              |(//span[contains(text(),'Sandbox: Bid Approval')])[1]                                                          |
+|pause  execution  for              |10                        |seconds                                                                             |
+|click                              |.//button[contains(@title,'Reply all')]                                                                        |
+|pause  execution  for              |10                        |seconds                                                                             |
+|type                               |Reject                    |into   |.//div[contains(@class,'allowTextSelection') and @role='textbox']|text field|
+|pause  execution  for              |5                         |seconds                                                                             |
+|click                              |{$VEREITMAIL.sendmail}                                                                                         |
+|pause  execution  for              |10                        |seconds                                                                             |
+|close browser                                                                                                                                      |
+
+!|Scenario            |reject through email in chrome                |
+|click                |{$VEREITMAIL.clickmail}                       |
+|pause  execution  for|3     |seconds                                |
+|click                |{$VEREITMAIL.replayall}                       |
+|pause  execution  for|3     |seconds                                |
+|click                |{$VEREITMAIL.expand}                          |
+|pause  execution  for|3     |seconds                                |
+|type                 |Reject|into|{$VEREITMAIL.aprovearea}|text area|
+|click                |{$VEREITMAIL.sendmail}                        |
+|pause  execution  for|3     |seconds                                |
+|click                |{$VEREITMAIL.signoutoption}                   |
+|pause  execution  for|2     |seconds                                |
+|click                |{$VEREITMAIL.signout}                         |
+|pause  execution  for|5     |seconds                                |
+
+!|Scenario            |verify request submitted by    |manager     |is rejected                                               |
+|start browser        |explorer                                                                                               |
+|open URL             |https://arcp--Stage.cs30.my.salesforce.com                                                              |
+|pause  execution  for|1                              |seconds                                                                |
+|type                 |shridevibhat@indecomm.net.stage|into        |//input[@id='username']               |text field         |
+|pause  execution  for|1                              |seconds                                                                |
+|type                 |welcome                        |into        |//input[@id='password']               |text field         |
+|pause  execution  for|1                              |seconds                                                                |
+|click                |//input[@id='Login']                                                                                   |
+|pause  execution  for|10                             |seconds                                                                |
+|click                |{$HOMETABS.cmprojecttab}                                                                               |
+|pause  execution  for|5                              |seconds                                                                |
+|click                |.//th[text()='Project Name']/../../tr[2]/th/a                                                          |
+|pause execution for  |5                              |seconds                                                                |
+|scroll to            |{$REJECT.@manager}                                                                                     |
+|pause  execution  for|5                              |seconds                                                                |
+|variable             |isapprovalrequestrejected      |equals  to                                                             |
+|verify page contains |{$REJECT.@manager}             |element                                                                |
+|assert true          |{$isapprovalrequestrejected}                                                                           |
+|log result           |{$isapprovalrequestrejected}   |with comment|approval request rejected by  @manager|in page|CM Projects|
+|variable             |isapprovalstatusdenied         |equals  to                                                             |
+|wait  for  element   |{$CMPROJECTINFO.approvalstatusrejected}                                                                |
+|assert true          |{$isapprovalstatusdenied}                                                                              |
+|log result           |{$isapprovalstatusdenied}      |with comment|approval status has been denied       |in page|CM Projects|
+|logout users                                                                                                                 |
+
+!|Scenario         |verify approval status is denied                                                           |
+|variable          |isapprovalstatusdenied    |equals  to                                                      |
+|wait  for  element|{$CMPROJECTINFO.approvalstatusrejected}                                                    |
+|assert true       |{$isapprovalstatusdenied}                                                                  |
+|log result        |{$isapprovalstatusdenied} |with comment|approval status has been denied|in page|CM Projects|
+|logout users                                                                                                  |
+
+!|Scenario            |select rejected project                                                                                                    |
+|click                |//a[text()='CM Projects']                                                                                                  |
+|pause  execution  for|6                                                           |seconds                                                       |
+|variable             |isprojectpresent                                            |equals  to                                                    |
+|verify page contains |(//a[contains(text(),'2017-Capital Improvement')])[1]       |element                                                       |
+|If                   |{$isprojectpresent}                                                                                                        |
+|click                |(//a[contains(text(),'2017-Capital Improvement')])[1]                                                                      |
+|pause  execution  for|5                                                           |seconds                                                       |
+|variable             |isprojectdenied                                             |equals  to                                                    |
+|verify page contains |//td[text()='Approval Status']/../td[4]/div[text()='Denied']|element                                                       |
+|assert true          |{$isprojectdenied}                                                                                                         |
+|log result           |{$isprojectdenied}                                          |with comment|selected rejected project|in page|CM project page|
+|End If                                                                                                                                           |
+
+

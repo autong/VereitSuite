@@ -1,0 +1,330 @@
+!contents -R2 -g -p -f -h
+!|Scenario                          |create new claim                    |option                     |
+|verifyassertelement                |{$RISKCENTRAL.newclaim}                                         |
+|log result for element with comment|'Create New Claim' option is present|in Page|Sales force        |
+|click                              |{$RISKCENTRAL.newclaim}                                         |
+|pause  execution  for              |10                                  |seconds                    |
+|select                             |id->itarget                         |frame                      |
+|verifyassertelement                |{$RISKCENTRAL.@optiontitle}                                     |
+|log result for element with comment|@option is present                  |in Page|Claim Creation page|
+|click                              |{$RISKCENTRAL.@optionclaim}                                     |
+|pause  execution  for              |2                                   |seconds                    |
+|click                              |{$RISKCENTRAL.saveandcontinue}                                  |
+|variable                           |date                                |equals  to                 |
+|get current date in format         |MM/dd/yyyy hh:mm                                                |
+
+
+!|Scenario                          |check and fill claim information page                                                                |
+|verifyassertelement                |{$RISKCENTRAL.location}                                                                              |
+|log result for element with comment|Location Label is present                      |in Page|claim information                            |
+|verifyassertelement                |{$RISKCENTRAL.dateofloss}                                                                            |
+|log result for element with comment|Date of Loss Label is present                  |in Page|claim information                            |
+|verifyassertelement                |{$RISKCENTRAL.accientinfo}                                                                           |
+|log result for element with comment|Accident Description label is present          |in Page|claim information                            |
+|click                              |{$RISKCENTRAL.locationlookup}                                                                        |
+|pause  execution  for              |2                                              |seconds                                              |
+|select  window  number             |2                                                                                                    |
+|verifyassertelement                |{$RISKCENTRAL.textsearch}                                                                            |
+|log result for element with comment|search text box is present                     |in Page|claim information                            |
+|type                               |phoenix                                        |into   |{$RISKCENTRAL.textsearch}         |text field|
+|click                              |{$RISKCENTRAL.buttonsearch}                                                                          |
+|pause  execution  for              |3                                              |seconds                                              |
+|click                              |{$RISKCENTRAL.searchresultone}                                                                       |
+|pause  execution  for              |2                                              |seconds                                              |
+|switch to default window                                                                                                                 |
+|pause  execution  for              |3                                              |seconds                                              |
+|select                             |id->itarget                                    |frame                                                |
+|pause  execution  for              |5                                              |seconds                                              |
+|click                              |{$RISKCENTRAL.datelink}                                                                              |
+|pause  execution  for              |2                                              |seconds                                              |
+|type                               |test                                           |into   |{$RISKCENTRAL.accidentdescription}|text area |
+|log result for element with comment|Information is filled in claim information page|in Page|claim information                            |
+|click                              |{$RISKCENTRAL.saveandcontinue}                                                                       |
+
+
+!|Scenario                          |check and fill claimant information page                                                            |
+|scroll to                          |{$CLAIMANTINFO.claimantfirstname}                                                                   |
+|verifyassertelement                |{$CLAIMANTINFO.claimantfirstname}                                                                   |
+|log result for element with comment|Claimant First name label is present              |in Page|claimant information page                |
+|verifyassertelement                |{$CLAIMANTINFO.claimantlastname}                                                                    |
+|log result for element with comment|Claimant Lirst name label is present              |in Page|claimant information page                |
+|verifyassertelement                |{$CLAIMANTINFO.claimantaddressone}                                                                  |
+|log result for element with comment|Claimant Address 1 label is present               |in Page|claimant information page                |
+|verifyassertelement                |{$CLAIMANTINFO.claimantaddresstwo}                                                                  |
+|log result for element with comment|Claimant Address 2 label is present               |in Page|claimant information page                |
+|verifyassertelement                |{$CLAIMANTINFO.claimantcity}                                                                        |
+|log result for element with comment|Claimant City label is present                    |in Page|claimant information page                |
+|verifyassertelement                |{$CLAIMANTINFO.claimantstate}                                                                       |
+|log result for element with comment|Claimant State label is present                   |in Page|claimant information page                |
+|verifyassertelement                |{$CLAIMANTINFO.claimantpostalcode}                                                                  |
+|log result for element with comment|Claimant Postal code label is present             |in Page|claimant information page                |
+|verifyassertelement                |{$CLAIMANTINFO.claimanthomephone}                                                                   |
+|log result for element with comment|Claimant home phone labelis present               |in Page|claimant information page                |
+|verifyassertelement                |{$CLAIMANTINFO.claimantworkphone}                                                                   |
+|log result for element with comment|Claimant work phone label is present              |in Page|claimant information page                |
+|verifyassertelement                |{$CLAIMANTINFO.claimantgender}                                                                      |
+|log result for element with comment|Claimant gender label is present                  |in Page|claimant information page                |
+|verifyassertelement                |{$CLAIMANTINFO.claimantinfo}                                                                        |
+|log result for element with comment|Claimant information comments labelis present     |in Page|claimant information page                |
+|pause  execution  for              |2                                                 |seconds                                          |
+|type                               |Firstname Test  {$date}                           |into   |{$CLAIMANTINFO.firstnameinput}|text field|
+|pause  execution  for              |2                                                 |seconds                                          |
+|type                               |Lastname Test  {$date}                            |into   |{$CLAIMANTINFO.lastnameinput} |text field|
+|pause  execution  for              |2                                                 |seconds                                          |
+|type                               |Address Test  {$date}                             |into   |{$CLAIMANTINFO.addressinput}  |text field|
+|pause  execution  for              |2                                                 |seconds                                          |
+|type                               |City Test {$date}                                 |into   |{$CLAIMANTINFO.cityinput}     |text field|
+|pause  execution  for              |5                                                 |seconds                                          |
+|select index number                |2                                                 |from   |{$CLAIMANTINFO.genderselect}             |
+|pause  execution  for              |5                                                 |seconds                                          |
+|select index number                |2                                                 |from   |{$CLAIMANTINFO.stateselect}              |
+|pause  execution  for              |2                                                 |seconds                                          |
+|type                               |Test Info  {$date}                                |into   |{$CLAIMANTINFO.infoinput}     |text field|
+|log result for element with comment|Information is filled in claimant information page|in Page|claim information                        |
+|pause  execution  for              |2                                                 |seconds                                          |
+|click                              |{$RISKCENTRAL.saveandcontinue}                                                                      |
+
+
+!|Scenario                          |check and fill Third party manager                                                                 |
+|verifyassertelement                |{$THIRDPARTYMANAGER.pmanagerfirstname}                                                             |
+|log result for element with comment|Property manager First name label is present     |in Page|Third party manager page                 |
+|verifyassertelement                |{$THIRDPARTYMANAGER.pmlastname}                                                                    |
+|log result for element with comment|Property manager Last name label is present      |in Page|Third party manager page                 |
+|verifyassertelement                |{$THIRDPARTYMANAGER.pmphone}                                                                       |
+|log result for element with comment|Property manager Phone label is present          |in Page|Third party manager page                 |
+|verifyassertelement                |{$THIRDPARTYMANAGER.pmemail}                                                                       |
+|log result for element with comment|Property Manager Email is present                |in Page|Third party manager page                 |
+|verifyassertelement                |{$THIRDPARTYMANAGER.pmcomment}                                                                     |
+|log result for element with comment|Property Manager comments is present             |in Page|Third party manager page                 |
+|type                               |PM first name {$date}                            |into   |{$THIRDPARTYMANAGER.firstname}|text field|
+|pause  execution  for              |5                                                |seconds                                          |
+|type                               |PM last name  {$date}                            |into   |{$THIRDPARTYMANAGER.lastname} |text field|
+|pause  execution  for              |5                                                |seconds                                          |
+|type                               |1231562                                          |into   |{$THIRDPARTYMANAGER.phone}    |text field|
+|pause  execution  for              |2                                                |seconds                                          |
+|type                               |Akulkarni@vereit.com                             |into   |{$THIRDPARTYMANAGER.email}    |text field|
+|pause  execution  for              |2                                                |seconds                                          |
+|type                               |test comments {$date}                            |into   |{$THIRDPARTYMANAGER.comment}  |text field|
+|log result for element with comment|Information is filled in Third party manager page|in Page|Third party manager page                 |
+|click                              |{$RISKCENTRAL.saveandcontinue}                                                                     |
+
+
+
+!|Scenario                          |check and fill police information page                                                                |
+|verifyassertelement                |{$POLICEINFO.policeagencyname}                                                                        |
+|log result for element with comment|Police Agency name  label is present            |in Page|Police information page                      |
+|verifyassertelement                |{$POLICEINFO.policereport}                                                                            |
+|log result for element with comment|Police report # label is present                |in Page|Police information page                      |
+|verifyassertelement                |{$POLICEINFO.policephone}                                                                             |
+|log result for element with comment|Police phone number label is present            |in Page|Police information page                      |
+|verifyassertelement                |{$POLICEINFO.policecomments}                                                                          |
+|log result for element with comment|Police comments label is present                |in Page|Police information page                      |
+|type                               |Police Agency Name test {$date}                 |into   |{$POLICEINFO.policeagencynametext}|text field|
+|pause  execution  for              |5                                               |seconds                                              |
+|type                               |Police Report test {$date}                      |into   |{$POLICEINFO.policereporttext}    |text field|
+|pause  execution  for              |5                                               |seconds                                              |
+|type                               |123456789                                       |into   |{$POLICEINFO.policephonetext}     |text field|
+|pause  execution  for              |5                                               |seconds                                              |
+|type                               |Comments test {$date}                           |into   |{$POLICEINFO.policecommentstext}  |text field|
+|pause  execution  for              |2                                               |seconds                                              |
+|log result for element with comment|Information is filled in Police information page|in Page|Police information page                      |
+|click                              |{$RISKCENTRAL.saveandcontinue}                                                                        |
+
+
+!|Scenario                          |check and fill medical information page                                                                 |
+|scroll to                          |{$HEALTHCAREINFO.hcfacilityname}                                                                        |
+|verifyassertelement                |{$HEALTHCAREINFO.hcfacilityname}                                                                        |
+|log result for element with comment|Healthcare Facility Name  label is present|in Page|Medical information page                             |
+|verifyassertelement                |{$HEALTHCAREINFO.hcfacilityaddressone}                                                                  |
+|log result for element with comment|Healthcare Facility Address Line 1        |in Page|Medical information page                             |
+|verifyassertelement                |{$HEALTHCAREINFO.hcfacilityaddresstwo}                                                                  |
+|log result for element with comment|Healthcare Facility Address Line 2        |in Page|Medical information page                             |
+|verifyassertelement                |{$HEALTHCAREINFO.hcfacilitycity}                                                                        |
+|log result for element with comment|Healthcare Facility City                  |in Page|Medical information page                             |
+|verifyassertelement                |{$HEALTHCAREINFO.hcfacilitystate}                                                                       |
+|log result for element with comment|Healthcare Facility State                 |in Page|Medical information page                             |
+|verifyassertelement                |{$HEALTHCAREINFO.hcfacilitypostalcode}                                                                  |
+|log result for element with comment|Healthcare Facility Postal Code           |in Page|Medical information page                             |
+|verifyassertelement                |{$HEALTHCAREINFO.hcfacilityphone}                                                                       |
+|log result for element with comment|Healthcare Facility Phone                 |in Page|Medical information page                             |
+|type                               |Healthcare Facility Name Test {$date}     |into   |{$HEALTHCAREINFO.hcfacilitynametext}      |text field|
+|pause  execution  for              |5                                         |seconds                                                      |
+|type                               |Healthcare Facility Address 1 {$date}     |into   |{$HEALTHCAREINFO.hcfacilityaddressonetext}|text field|
+|pause  execution  for              |5                                         |seconds                                                      |
+|type                               |Healthcare Facility Address 2 {$date}     |into   |{$HEALTHCAREINFO.hcfacilityaddresstwotext}|text field|
+|pause  execution  for              |5                                         |seconds                                                      |
+|type                               |Healthcare Facility City  {$date}         |into   |{$HEALTHCAREINFO.hcfacilitycitytext}      |text field|
+|pause  execution  for              |5                                         |seconds                                                      |
+|scroll to                          |{$HEALTHCAREINFO.hcfacilitystatetext}                                                                   |
+|select index number                |2                                         |from   |{$HEALTHCAREINFO.hcfacilitystatetext}                |
+|pause  execution  for              |5                                         |seconds                                                      |
+|type                               |Healthcare Facility Postal Code {$date}   |into   |{$HEALTHCAREINFO.hcfacilitypostalcodetext}|text field|
+|pause  execution  for              |2                                         |seconds                                                      |
+|type                               |23456754                                  |into   |{$HEALTHCAREINFO.hcfacilityphonetext}     |text field|
+|pause  execution  for              |2                                         |seconds                                                      |
+|log result for element with comment|Medical information page is filled in page|in Page|Police information page                              |
+|click                              |{$HEALTHCAREINFO.saveandcontinue}                                                                       |
+|pause  execution  for              |2                                         |seconds                                                      |
+
+
+
+!|Scenario                          |No witness needed                                                                   |
+|verifyassertelement                |{$WITNESSINFO.checkforwitness}                                                      |
+|log result for element with comment|'Do you want to add Witness(es) messages is present|in Page|Witness information page|
+|click                              |{$WITNESSINFO.no}                                                                   |
+|pause  execution  for              |3                                                  |seconds                         |
+
+
+!|Scenario                          |check and fill information for                                                                 |option |witness                                |
+|show                               |evaluate                                                                                       |@option                                        |
+|verifyassertelement                |{$WITNESSINFO.checkforwitness}                                                                                                                 |
+|log result for element with comment|'Do you want to add Witness(es) messages is present                                            |in Page|Witness information page               |
+|click                              |{$WITNESSINFO.yes}                                                                                                                             |
+|pause  execution  for              |3                                                                                              |seconds                                        |
+|verifyassertelement                |{$WITNESSINFO.firstname}                                                                                                                       |
+|log result for element with comment|Witness First name  label is present                                                           |in Page|Witness information page               |
+|verifyassertelement                |{$WITNESSINFO.lastname}                                                                                                                        |
+|log result for element with comment|Witness Last name  label is present                                                            |in Page|Witness information page               |
+|verifyassertelement                |{$WITNESSINFO.address}                                                                                                                         |
+|log result for element with comment|Witness Address  label is present                                                              |in Page|Witness information page               |
+|verifyassertelement                |{$WITNESSINFO.addresslinetwo}                                                                                                                  |
+|log result for element with comment|Witness Address Line 2  label is present                                                       |in Page|Witness information page               |
+|verifyassertelement                |{$WITNESSINFO.city}                                                                                                                            |
+|log result for element with comment|Witness City  label is present                                                                 |in Page|Witness information page               |
+|verifyassertelement                |{$WITNESSINFO.state}                                                                                                                           |
+|log result for element with comment|Witness state  label is present                                                                |in Page|Witness information page               |
+|verifyassertelement                |{$WITNESSINFO.postalcode}                                                                                                                      |
+|log result for element with comment|Witness postal code  label is present                                                          |in Page|Witness information page               |
+|verifyassertelement                |{$WITNESSINFO.country}                                                                                                                         |
+|log result for element with comment|Witness country  label is present                                                              |in Page|Witness information page               |
+|verifyassertelement                |{$WITNESSINFO.homephone}                                                                                                                       |
+|log result for element with comment|Witness home phone  label is present                                                           |in Page|Witness information page               |
+|verifyassertelement                |{$WITNESSINFO.workphone}                                                                                                                       |
+|log result for element with comment|Witness work phone  label is present                                                           |in Page|Witness information page               |
+|verifyassertelement                |{$WITNESSINFO.workphoneextension}                                                                                                              |
+|log result for element with comment|Witness work phone extension  label is present                                                 |in Page|Witness information page               |
+|verifyassertelement                |{$WITNESSINFO.infoone}                                                                                                                         |
+|log result for element with comment|'Please review all preceding sections before clicking the Save button below.'message is present|in Page|Witness information page               |
+|verifyassertelement                |{$WITNESSINFO.infotwo}                                                                                                                         |
+|log result for element with comment|'You will be unable to change your provided answers once Save is clicked.' message is present  |in Page|Witness information page               |
+|variable                           |witnessno                                                                                      |equals  to                                     |
+|evaluate                           |1                                                                                                                                              |
+|evaluate                           |@option                                                                                                                                        |
+|loop                               |@option                                                                                        |Times                                          |
+|type                               |FN Witness {$witnessno}                                                                        |into   |{$WITNESSINFO.firstnametext}|text field|
+|pause  execution  for              |2                                                                                              |seconds                                        |
+|type                               |LN Witness {$witnessno}                                                                        |into   |{$WITNESSINFO.lastnametext} |text field|
+|pause  execution  for              |2                                                                                              |seconds                                        |
+|click                              |{$WITNESSINFO.saveandcreateclaim}                                                                                                              |
+|pause  execution  for              |3                                                                                              |seconds                                        |
+|verifyasserttext                   |FN Witness {$witnessno}                                                                                                                        |
+|log result for text with comment   |FN Witness {$witnessno} is seen in existing page                                               |in Page|webmail                                |
+|verifyasserttext                   |LN Witness {$witnessno}                                                                                                                        |
+|log result for text with comment   |LN Witness {$witnessno} is seen in existing page                                               |in Page|webmail                                |
+|show                               |evaluate                                                                                       |{$witnessno}                                   |
+|If                                 |'{$witnessno}<@option'                                                                                                                         |
+|click                              |{$WITNESSINFO.addwitness}                                                                                                                      |
+|End If                                                                                                                                                                             |
+|variable                           |witnessno                                                                                      |equals  to                                     |
+|evaluate                           |'{$witnessno}+1'                                                                                                                               |
+|show                               |evaluate                                                                                       |{$witnessno}                                   |
+|pause  execution  for              |3                                                                                              |seconds                                        |
+|end Loop                                                                                                                                                                           |
+|click                              |{$WITNESSINFO.continue}                                                                                                                        |
+|pause  execution  for              |5                                                                                              |seconds                                        |
+
+
+!|Scenario                          |check and fill witness information page                                                                                                        |
+|verifyassertelement                |{$WITNESSINFO.checkforwitness}                                                                                                                 |
+|log result for element with comment|'Do you want to add Witness(es) messages is present                                            |in Page|Witness information page               |
+|click                              |{$WITNESSINFO.yes}                                                                                                                             |
+|pause  execution  for              |3                                                                                              |seconds                                        |
+|verifyassertelement                |{$WITNESSINFO.firstname}                                                                                                                       |
+|log result for element with comment|Witness First name  label is present                                                           |in Page|Witness information page               |
+|verifyassertelement                |{$WITNESSINFO.lastname}                                                                                                                        |
+|log result for element with comment|Witness Last name  label is present                                                            |in Page|Witness information page               |
+|verifyassertelement                |{$WITNESSINFO.address}                                                                                                                         |
+|log result for element with comment|Witness Address  label is present                                                              |in Page|Witness information page               |
+|verifyassertelement                |{$WITNESSINFO.addresslinetwo}                                                                                                                  |
+|log result for element with comment|Witness Address Line 2  label is present                                                       |in Page|Witness information page               |
+|verifyassertelement                |{$WITNESSINFO.city}                                                                                                                            |
+|log result for element with comment|Witness City  label is present                                                                 |in Page|Witness information page               |
+|verifyassertelement                |{$WITNESSINFO.state}                                                                                                                           |
+|log result for element with comment|Witness state  label is present                                                                |in Page|Witness information page               |
+|verifyassertelement                |{$WITNESSINFO.postalcode}                                                                                                                      |
+|log result for element with comment|Witness postal code  label is present                                                          |in Page|Witness information page               |
+|verifyassertelement                |{$WITNESSINFO.country}                                                                                                                         |
+|log result for element with comment|Witness country  label is present                                                              |in Page|Witness information page               |
+|verifyassertelement                |{$WITNESSINFO.homephone}                                                                                                                       |
+|log result for element with comment|Witness home phone  label is present                                                           |in Page|Witness information page               |
+|verifyassertelement                |{$WITNESSINFO.workphone}                                                                                                                       |
+|log result for element with comment|Witness work phone  label is present                                                           |in Page|Witness information page               |
+|verifyassertelement                |{$WITNESSINFO.workphoneextension}                                                                                                              |
+|log result for element with comment|Witness work phone extension  label is present                                                 |in Page|Witness information page               |
+|verifyassertelement                |{$WITNESSINFO.infoone}                                                                                                                         |
+|log result for element with comment|'Please review all preceding sections before clicking the Save button below.'message is present|in Page|Witness information page               |
+|verifyassertelement                |{$WITNESSINFO.winfotwo}                                                                                                                        |
+|log result for element with comment|'You will be unable to change your provided answers once Save is clicked.' message is present  |in Page|Witness information page               |
+|type                               |FN Witness 1                                                                                   |into   |{$WITNESSINFO.firstnametext}|text field|
+|pause  execution  for              |2                                                                                              |seconds                                        |
+|type                               |LN Witness 1                                                                                   |into   |{$WITNESSINFO.lastnametext} |text field|
+|pause  execution  for              |2                                                                                              |seconds                                        |
+|click                              |{$WITNESSINFO.saveandcreateclaim}                                                                                                              |
+|pause  execution  for              |5                                                                                              |seconds                                        |
+|verifyasserttext                   |FN Witness 1                                                                                                                                   |
+|log result for text with comment   |FN Witness 1  is seen in existing page                                                         |in Page|webmail                                |
+|verifyasserttext                   |LN Witness 1                                                                                                                                   |
+|log result for text with comment   |LN Witness 1  is seen in existing page                                                         |in Page|webmail                                |
+|click                              |{$WITNESSINFO.continue}                                                                                                                        |
+|pause  execution  for              |5                                                                                              |seconds                                        |
+
+!|Scenario                          |submit and upload attachment                                                                                                                                               |
+|verifyassertelement                |{$SUBMIT.titleone}                                                                                                                                                         |
+|log result for element with comment|'Upload Attachments title is present                                                                                                    |in Page   |submit page            |
+|verifyassertelement                |{$SUBMIT.titletwo}                                                                                                                                                         |
+|log result for element with comment|'Existing Attachments title is present                                                                                                  |in Page   |submit page            |
+|show                               |evaluate                                                                                                                                |{$DATASHEET.riskcentralattachment}|
+|upload  file                       |C:\AutomationNG\FitNesseRoot\AutomationNg\VereitSuite\VereitApp\SalesForceApplication\RiskCentralModule\ClaimCreation\attachdemotext.txt|by        |//input[@type='file']  |
+|pause  execution  for              |5                                                                                                                                       |seconds                           |
+|click                              |{$SUBMIT.uploadattachment}                                                                                                                                                 |
+|pause  execution  for              |3                                                                                                                                       |seconds                           |
+|verifyassertelement                |//span[contains(text(),'attachdemotext.txt')]                                                                                                                              |
+|log result for element with comment|Uploaded attachment                                                                                                                     |in Page   |submit page            |
+|click                              |{$SUBMIT.done}                                                                                                                                                             |
+|pause  execution  for              |3                                                                                                                                       |seconds                           |
+|verify  page  contains             |Claim                                                                                                                                   |text                              |
+|variable                           |claimno                                                                                                                                 |equals to                         |
+|get  text  from                    |{$SUBMIT.claimnumber}                                                                                                                                                      |
+|log result for element with comment|{$claimno} got created                                                                                                                  |in Page   |Claim                  |
+
+
+
+!|Scenario                          |login to webmail and verify the claim email                            |
+|pause  execution  for              |2                      |seconds                                        |
+|open URL                           |${vereit_webmail}                                                      |
+|pause  execution  for              |10                     |seconds                                        |
+|type                               |Akulkarni@vereit.com   |into   |//input[@id='userNameInput']|text field|
+|pause  execution  for              |1                      |seconds                                        |
+|type                               |Spring17               |into   |//input[@id='passwordInput']|text field|
+|pause  execution  for              |5                      |seconds                                        |
+|click                              |//span[@id='submitButton']                                             |
+|pause  execution  for              |10                     |seconds                                        |
+|verifyassertelement                |{$MAIL.claimmail}                                                      |
+|log result for element with comment|Received New Claim mail|in Page|Vereit webmail                         |
+|click                              |{$MAIL.clickmail}                                                      |
+|verifyasserttext                   |{$claimno}                                                             |
+|log result for text with comment   |{$claimno} mail receive|in Page|webmail                                |
+|pause  execution  for              |3                      |seconds                                        |
+|click                              |//button[@title='Delete (Del)']                                        |
+|close browser                                                                                              |
+
+
+
+
+
+
+
+
+
+
+

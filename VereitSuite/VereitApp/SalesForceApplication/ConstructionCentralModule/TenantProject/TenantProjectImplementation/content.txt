@@ -1,0 +1,34 @@
+!|Scenario            |add new tenant project                                         |
+|read from data for   |tenantproject|excelsheet from|2|for creating new tenant project|
+|pause  execution  for|2            |seconds                                          |
+
+!|Scenario            |read from data for   |sheetName       |excelsheet from               |rowNumber|for creating new tenant project|
+|load                 |@sheetName           |excel sheet from|{$DATASHEET.cmprojectcreation}|in       |read           |Mode           |
+|variable             |recordtype           |equals to                                                                                |
+|getFromExcelRow      |@rowNumber           |Column          |1                                                                       |
+|variable             |building             |equals to                                                                                |
+|getFromExcelRow      |@rowNumber           |Column          |2                                                                       |
+|variable             |status               |equals to                                                                                |
+|getFromExcelRow      |@rowNumber           |Column          |3                                                                       |
+|variable             |worktype             |equals to                                                                                |
+|getFromExcelRow      |@rowNumber           |Column          |4                                                                       |
+|variable             |origination          |equals to                                                                                |
+|getFromExcelRow      |@rowNumber           |Column          |5                                                                       |
+|variable             |contractagreementtype|equals to                                                                                |
+|getFromExcelRow      |@rowNumber           |Column          |6                                                                       |
+|variable             |budgetyear           |equals to                                                                                |
+|getFromExcelRow      |@rowNumber           |Column          |7                                                                       |
+|variable             |task                 |equals to                                                                                |
+|getFromExcelRow      |@rowNumber           |Column          |8                                                                       |
+|variable             |category             |equals to                                                                                |
+|getFromExcelRow      |@rowNumber           |Column          |9                                                                       |
+|variable             |lendorapproval       |equals  to                                                                               |
+|get  from  excel  row|@rowNumber           |column          |10                                                                      |
+|variable             |estimated            |equals to                                                                                |
+|getFromExcelRow      |@rowNumber           |Column          |11                                                                      |
+|variable             |consopsmgr           |equals to                                                                                |
+|getFromExcelRow      |@rowNumber           |Column          |12                                                                      |
+|variable             |propmgr              |equals to                                                                                |
+|getFromExcelRow      |@rowNumber           |Column          |13                                                                      |
+|variable             |assetmgr             |equals to                                                                                |
+|getFromExcelRow      |@rowNumber           |Column          |14                                                                      |

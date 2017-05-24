@@ -1,0 +1,17 @@
+!|Scenario            |read vendor details                                                     |
+|load                 |vendordetails|excel  sheet  from|{$DATASHEET.vendordetails}|in|read|mode|
+|variable             |vendorname   |equals  to                                                |
+|get  from  excel  row|2            |column            |1                                      |
+|variable             |status       |equals  to                                                |
+|get  from  excel  row|2            |column            |2                                      |
+|variable             |contact      |equals  to                                                |
+|get  from  excel  row|2            |column            |3                                      |
+|variable             |address      |equals  to                                                |
+|get  from  excel  row|2            |column            |4                                      |
+|variable             |city         |equals  to                                                |
+|get  from  excel  row|2            |column            |5                                      |
+|variable             |zipcode      |equals  to                                                |
+|get  from  excel  row|2            |column            |6                                      |
+|unload  excel sheet                                                                           |
+
+

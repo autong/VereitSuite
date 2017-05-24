@@ -1,0 +1,96 @@
+!|Scenario|initialize test setup with result name|resultname                                                              |
+|test File|@resultname                           |Of Type|XML|At Path|./Vereit_report_style|With Style|Vereit_report_style|
+
+
+!|Scenario  |log result|result|with comment|comment|in page|page|
+|test result|ID=@page&&RES=@result&&CMT=@comment                |
+
+!|Scenario           |verifyassertelement|webelement|
+|variable            |varelement         |equals to |
+|verify page contains|@webelement        |element   |
+|assert true         |{$varelement}                 |
+
+!|Scenario  |log result for element  with comment|comment|in page|page|
+|If         |{$varelement}                                            |
+|test result|ID=@page&&RES={$varelement}&&CMT=@comment successful     |
+|Else                                                                 |
+|test result|ID=@page&&RES={$varelement}&&CMT=@comment failed         |
+|End If                                                               |
+   
+!|Scenario             |verifyasserttext|text     |
+|variable              |vartext         |equals to|
+|verify  page  contains|@text           |text     |
+|assert true           |{$vartext}                |
+
+!|Scenario  |log result for text  with comment|comment|in page|page|
+|If         |{$vartext}                                            |
+|test result|ID=@page&&RES={$vartext}&&CMT=@comment successful     |
+|Else                                                              |
+|test result|ID=@page&&RES={$vartext}&&CMT=@comment failed         |
+|End If                                                            |
+                                             
+!|Scenario                          |start browser and open url|url               |
+|start browser                      |${defaultBrowser}                            |
+|maximize browser                                                                 |
+|open URL                           |@url                                         |
+|verifyassertelement                |.//*[@id='Login']                            |
+|log result for element with comment|Opened the URL : @url     |in page|Login Page|
+
+!|Scenario                          |login with username _ and password _|username , password                       |
+|type                               |@username                           |into   |//input[@id='username']|text field|
+|type                               |@password                           |into   |//input[@id='password']|text field|
+|verifyassertelement                |//input[@id='Login']                                                           |
+|log result for element with comment|Entering username and password      |in page|Login Page                        |
+|click                              |//input[@id='Login']                                                           |
+
+
+!|Scenario            |logout users        |
+|click                |//div[@id='userNav']|
+|pause  execution  for|2      |seconds     |
+|click                |//a[@title='Logout']|
+|pause  execution  for|5      |seconds     |
+|close browser                             |
+
+!|Scenario                          |login to the Vereit module|user                    |
+|load      environment              |@user                                              |
+|start browser and open url         |{$url}                                             |
+|login with username                |{$username}               |and password|{$password}|
+|pause  execution  for              |20                        |seconds                 |
+|verifyassertelement                |.//a[text()='Home']                                |
+|log result for element with comment|Login                     |in page     |Home Page  |
+
+!|Scenario            |tear down                     |
+|click                |(.//input[@title='Delete'])[1]|
+|pause  execution  for|5             |seconds        |
+|variable             |isvisible     |equals  to     |
+|verify  popup  is    |visible                       |
+|If                   |{$isvisible}                  |
+|popup  action        |ok                            |
+|End If                                              |
+|end result                                          |
+
+!|Scenario                          |select application              |application|and verify the tab     |tab  |
+|variable                           |applicationtype                 |equals  to                               |
+|verify  text                       |@application                    |with       |//span[@id='tsidLabel']|field|
+|If                                 |{$applicationtype}                                                        |
+|log result for element with comment|@application is already selected|in page    |Home Page                    |
+|Else                                                                                                          |
+|click                              |//span[@id='tsidLabel']                                                   |
+|pause  execution  for              |5                               |seconds                                  |
+|click                              |//a[text()='@application']                                                |
+|log result for element with comment|@application is selected        |in page    |Home Page                    |
+|pause  execution  for              |3                               |seconds                                  |
+|End If                                                                                                        |
+|variable                           |verifytab                       |equals  to                               |
+|verify  page  contains             |@tab                            |text                                     |
+|assert true                        |{$verifytab}                                                              |
+
+!|Scenario               |verifyassertfalseelement|webelement|
+|variable                |varelement              |equals to |
+|verify page not contains|@webelement             |element   |
+|assert true             |{$varelement}                      |
+
+!|Scenario                |verifyassertnotext|text     |
+|variable                 |vartext           |equals to|
+|verify  page not contains|@text             |text     |
+|assert false             |{$vartext}                  |

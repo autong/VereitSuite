@@ -1,0 +1,22 @@
+|import                          |
+|net.indecomm.autong.api.fitnesse|
+
+!include -c <VereitSuite.VereitCommonFiles 
+!include -c <VereitSuite.VereitApp.SalesForceApplication.ConstructionCentralModule.CmProjectsPage.CmProjectsObjectRepository
+!include -c <VereitSuite.VereitApp.SalesForceApplication.ConstructionCentralModule.CmProjectsPage.CmProjectsScenarios
+!include -c <VereitSuite.VereitApp.SalesForceApplication.ConstructionCentralModule.CmProjectsPage.CmProjectsImplementation
+!include -c <VereitSuite.VereitApp.SalesForceApplication.ConstructionCentralModule.ConstructionCentralHome.ConstructionCentralHomeScenarios
+!include -c <VereitSuite.VereitApp.SalesForceApplication.ConstructionCentralModule.ConstructionCentralHome.ConstructionCentralHomeRepository
+!include -c <VereitSuite.VereitApp.SalesForceApplication.ConstructionCentralModule.VendorsPage.VendorScenarios
+!include -c <VereitSuite.VereitApp.SalesForceApplication.ConstructionCentralModule.VendorsPage.VendorsImplementation
+!include -c <VereitSuite.VereitApp.SalesForceApplication.ConstructionCentralModule.VendorsPage.VendorsObjectRepository
+
+!|Script                                  |AutomationNG                                       |
+|set test                                 |${PAGE_NAME}                                       |
+|set suite path                           |${PAGE_PATH}                                       |
+|initialize test setup with result name   |${PAGE_NAME}_${defaultBrowser}                     |
+|login to the Vereit module               |${admin}                                           |
+|select application                       |Construction Central|and verify the tab|CM Projects|
+|add vendor                                                                                   |
+|close browser                                                                                |
+|end result                                                                                   |

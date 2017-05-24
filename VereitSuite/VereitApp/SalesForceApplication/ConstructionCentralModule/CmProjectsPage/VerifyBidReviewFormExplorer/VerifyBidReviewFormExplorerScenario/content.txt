@@ -1,0 +1,52 @@
+!|Scenario                  |read bid review form in explorer                                                                                                          |
+|variable                   |isbidformpresent                                          |equals  to                                                                     |
+|verify page contains       |//a[starts-with(text(),'BID') and contains(text(),'.pdf')]|element                                                                        |
+|assert true                |{$isbidformpresent}                                                                                                                       |
+|log result                 |{$isbidformpresent}                                       |with comment|Bid Review form is present                |in page|email          |
+|If                         |{$isbidformpresent}                                                                                                                       |
+|click                      |//a[starts-with(text(),'BID')]                                                                                                            |
+|pause  execution  for      |3                                                         |seconds                                                                        |
+|switch to popup window                                                                                                                                                |
+|pause  execution  for      |5                                                         |seconds                                                                        |
+|verify page contains       |//input[@id='username']                                   |element                                                                        |
+|type                       |shridevibhat@indecomm.net.stage                           |into        |//input[@id='username']                   |text field             |
+|pause  execution  for      |2                                                         |seconds                                                                        |
+|type                       |welcome                                                   |into        |//input[@id='password']                   |text field             |
+|pause  execution  for      |2                                                         |seconds                                                                        |
+|click                      |//input[@id='Login']                                                                                                                      |
+|pause  execution  for      |20                                                        |seconds                                                                        |
+|press robot                |CONTROL                                                   |key                                                                            |
+|press robot                |SHIFT                                                     |key                                                                            |
+|press robot                |S                                                         |key                                                                            |
+|release robot              |S                                                         |key                                                                            |
+|release robot              |SHIFT                                                     |key                                                                            |
+|release robot              |CONTROL                                                   |key                                                                            |
+|pause  execution  for      |5                                                         |seconds                                                                        |
+|press robot                |ENTER                                                     |key                                                                            |
+|release robot              |ENTER                                                     |key                                                                            |
+|pause  execution  for      |5                                                         |seconds                                                                        |
+|close popup window |
+|load  p d f  document  from|C:\\Users\\Shridevi.Bhat\\Downloads\\servlet.pdf                                                                                          |
+|variable                   |isvendor                                                  |equals  to                                                                     |
+|verify  whether            |IndeVendor                                                |is  present  in  p d f                                                         |
+|unload  p d f  document                                                                                                                                               |
+|assert true                |{$isvendor}                                                                                                                               |
+|log result                 |{$isvendor}                                               |with comment|vendor name present in the bid review form|in page|bid review form|
+
+!|Scenario                          |approve through new email                                                                                                       |
+|pause  execution  for              |20                        |seconds                                                                                              |
+|verifyassertelement                |{$VEREITMAIL.bidapprmail}                                                                                                       |
+|log result for element with comment|Received Bid approval mail|in Page     |Vereit webmail                                                                          |
+|doubleClickOn                      |(//span[contains(text(),'Sandbox: Bid Approval')])[1]                                                                           |
+|pause  execution  for              |25                        |seconds                                                                                              |
+|switch to popup window                                                                                                                                              |
+|variable                           |ismailopen                |equals  to                                                                                           |
+|wait  for  element                 |.//button[contains(@title,'Reply all')]                                                                                         |
+|log result                         |{$ismailopen}             |with comment|mail is open                                                     |in page|vereit webmail|
+|click                              |.//button[contains(@title,'Reply all')]                                                                                         |
+|pause  execution  for              |20                        |seconds                                                                                              |
+|type                               |Approve                   |into        |.//div[contains(@class,'allowTextSelection') and @role='textbox']|text field            |
+|pause  execution  for              |10                        |seconds                                                                                              |
+|click                              |{$VEREITMAIL.sendmail}                                                                                                          |
+|pause  execution  for              |6                         |seconds                                                                                              |
+|close browser                      |                                                                                                                                |

@@ -1,0 +1,36 @@
+----
+'''Test Steps'''
+Login to vereit webmail
+open any bid approved mail
+Download the Bid review form
+Verify bid review form for vendor details
+Log out and close the browser 
+
+'''Pre condition for script execution'''
+1. Run only on chrome
+2. Mail inbox must contain a bid approved email
+
+----
+
+|import                          |
+|net.indecomm.autong.api.fitnesse|
+
+!include -c <VereitSuite.VereitCommonFiles 
+!include -c <VereitSuite.VereitApp.SalesForceApplication.ConstructionCentralModule.CmProjectsPage.CmProjectsObjectRepository
+!include -c <VereitSuite.VereitApp.SalesForceApplication.ConstructionCentralModule.CmProjectsPage.CmProjectsScenarios
+!include -c <VereitSuite.VereitApp.SalesForceApplication.ConstructionCentralModule.CmProjectsPage.CmProjectsImplementation
+!include -c <VereitSuite.VereitApp.SalesForceApplication.ConstructionCentralModule.BidsPage.BidsScenarios
+!include -c <VereitSuite.VereitApp.SalesForceApplication.ConstructionCentralModule.BidsPage.BidsImplementation
+!include -c <VereitSuite.VereitApp.SalesForceApplication.ConstructionCentralModule.BidsPage.BidsObjectRepository
+!include -c <VereitSuite.VereitApp.SalesForceApplication.ConstructionCentralModule.ConstructionCentralHome.ConstructionCentralHomeScenarios
+!include -c <VereitSuite.VereitApp.SalesForceApplication.ConstructionCentralModule.ConstructionCentralHome.ConstructionCentralHomeRepository
+!include -c <VereitSuite.VereitApp.SalesForceApplication.ConstructionCentralModule.ConstructionCentralHome.ConstructionCentralHomeImplementation
+!include -c <VereitSuite.VereitApp.SalesForceApplication.ConstructionCentralModule.CmProjectsPage.VerifyBidReviewFormChrome.VerifyBidReviewFormChromeScenario
+
+!|Script                               |AutomationNG                                                                     |
+|set test                              |${PAGE_NAME}                                                                     |
+|set suite path                        |${PAGE_PATH}                                                                     |
+|initialize test setup with result name|${PAGE_NAME}_chrome                                                              |
+|login to webmail and verify the cm project approved mail                                                                |
+|read bid review form                                                                                                    |
+|end result                                                                                                              |

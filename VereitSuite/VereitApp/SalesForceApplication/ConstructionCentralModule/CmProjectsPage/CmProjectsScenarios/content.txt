@@ -1,0 +1,192 @@
+!|Scenario|approve by                          |manager             |
+|login to vereit webmail                                            |
+|approve through email                                              |
+
+!|Scenario                         |login to vereit webmail                                                              |
+|read login data for vereit webmail|vereitwebmail                                                                        |
+|start browser                     |${defaultBrowser}                                                                    |
+|open URL                          |http://webmail.vereit.com                                                            |
+|pause  execution  for             |10                         |seconds                                                  |
+|type                              |{$username}                |into        |//input[@id='userNameInput']|text field     |
+|pause  execution  for             |1                          |seconds                                                  |
+|type                              |{$password}                |into        |//input[@id='passwordInput']|text field     |
+|pause  execution  for             |5                          |seconds                                                  |
+|click                             |//span[@id='submitButton']                                                           |
+|pause  execution  for             |10                         |seconds                                                  |
+|variable                          |islogin                    |equals  to                                               |
+|verify page contains              |//span[text()='Office 365']|element                                                  |
+|assert true                       |{$islogin}                                                                           |
+|log result                        |{$islogin}                 |with comment|login to vereit mailbox     |in page|mailbox|
+
+!|Scenario                          |approve through email                                                                                                                                                   |
+|pause  execution  for              |20                        |seconds                                                                                                                                      |
+|verifyassertelement                |{$VEREITMAIL.bidapprmail}                                                                                                                                               |
+|log result for element with comment|Received Bid approval mail|in Page                                |Vereit webmail                                                                                       |
+|click |(//span[contains(text(),'Sandbox: Bid Approval')])[1]|
+|pause  execution  for              |20                        |seconds                                                                                                                                      |
+|click                              |.//button[contains(@title,'Reply all')]                                                                                                                                 |
+|pause  execution  for              |10                        |seconds                                                                                                                                      |
+|type                               |Approve                   |into                                   |.//div[contains(@class,'allowTextSelection') and @role='textbox']|text field                         |
+|pause  execution  for              |5                         |seconds                                                                                                                                      |
+|click                              |{$VEREITMAIL.sendmail}                                                                                                                                                  |
+|pause  execution  for              |10                        |seconds                                                                                                                                      |
+|close browser                                                                                                                                                                                               |
+
+!|Scenario            |verify approval request submitted by|manager     |is accepted                                              |
+|show                 |evaluate                            |@manager                                                              |
+|start browser        |${defaultBrowser}                                                                                          |
+|open URL             |https://arcp--Stage.cs9.my.salesforce.com                                                                  |
+|pause  execution  for|1                                   |seconds                                                               |
+|type                 |shridevibhat@indecomm.net.stage     |into        |//input[@id='username']              |text field         |
+|pause  execution  for|1                                   |seconds                                                               |
+|type                 |welcome                             |into        |//input[@id='password']              |text field         |
+|pause  execution  for|1                                   |seconds                                                               |
+|click                |//input[@id='Login']                                                                                       |
+|pause  execution  for|1                                   |seconds                                                               |
+|click                |{$HOMETABS.cmprojecttab}                                                                                   |
+|pause  execution  for|5                                   |seconds                                                               |
+|click                |.//th[text()='Project Name']/../../tr[2]/th/a                                                              |
+|pause execution for  |5                                   |seconds                                                               |
+|scroll to            |{$APPROVER.@manager}                                                                                       |
+|pause  execution  for|5                                   |seconds                                                               |
+|variable             |isapprovalrequestaccepted           |equals  to                                                            |
+|verify page contains |{$APPROVER.@manager}                |element                                                               |
+|assert true          |{$isapprovalrequestaccepted}                                                                               |
+|log result           |{$isapprovalrequestaccepted}        |with comment|approval request accepted by @manager|in page|CM Projects|
+|logout users                                                                                                                     |
+
+!|Scenario             |login to webmail and verify the cm project approved mail                                                |
+|pause  execution  for |20                   |seconds                                                                           |
+|login to vereit webmail                                                                                                        |
+|click                 |(//span[contains(text(),'Sandbox: CM Project')])[1]                                                     |
+|pause  execution  for |8                    |seconds                                                                           |
+|verify  page  contains|bid has been Approved|text                                                                              |
+
+!|Scenario            |verify email message content line by line                                                                                                                                |
+|pause  execution  for|5                                                                                         |seconds                                                                       |
+|variable             |emailfirstlinetextpresent                                                                 |equals  to                                                                    |
+|wait  for  element   |.//div[contains(text(),'A project has been submitted for your approval. Please click the link to view the Bid Review PDF:')]                                             |
+|assert true          |{$emailfirstlinetextpresent}                                                                                                                                             |
+|variable             |emailsecondlinetextpresent                                                                |equals  to                                                                    |
+|verify page contains |.//a[contains(text(),'.pdf')]                                                             |element                                                                       |
+|assert true          |{$emailsecondlinetextpresent}                                                                                                                                            |
+|variable             |emailthirdlinetextpresent                                                                 |equals  to                                                                    |
+|verify page contains |.//div[contains(text()[2],'Following are the submitted bids and their attachment links:')]|element                                                                       |
+|assert true          |{$emailthirdlinetextpresent}                                                                                                                                             |
+|variable             |emailfourthlinetextpresent                                                                |equals  to                                                                    |
+|verify page contains |.//b[contains(text(),'Bid Name:')]                                                        |element                                                                       |
+|assert true          |{$emailfourthlinetextpresent}                                                                                                                                            |
+|variable             |emailfifthlinetextpresent                                                                 |equals  to                                                                    |
+|verify page contains |//span[contains(text(),'No Attachments!')]                                                |element                                                                       |
+|assert true          |{$emailfifthlinetextpresent}                                                                                                                                             |
+|variable             |emailsixthlinetextpresent                                                                 |equals  to                                                                    |
+|verify page contains |//font[@color='Green' and contains(text()[1],'To Approve,')]                              |element                                                                       |
+|assert true          |{$emailsixthlinetextpresent}                                                                                                                                             |
+|variable             |emailseventhlineonetextpresent                                                            |equals  to                                                                    |
+|verify page contains |//font[@color='Green' and contains(text()[2],'Please reply with')]                        |element                                                                       |
+|assert true          |{$emailseventhlineonetextpresent}                                                                                                                                        |
+|variable             |emailseventhlinetwotextpresent                                                            |equals  to                                                                    |
+|verify page contains |//font[@color='Green']/b[contains(text(),'Approve/Approved/Yes')]                         |element                                                                       |
+|assert true          |{$emailseventhlinetwotextpresent}                                                                                                                                        |
+|variable             |emaileightlinetextpresent                                                                 |equals  to                                                                    |
+|verify page contains |//font[@color='Red' and contains(text()[1],'To Reject,')]                                 |element                                                                       |
+|assert true          |{$emaileightlinetextpresent}                                                                                                                                             |
+|variable             |emailninthlineonetextpresent                                                              |equals  to                                                                    |
+|verify page contains |//font[@color='Red' and contains(text()[2],'Please reply with')]                          |element                                                                       |
+|assert true          |{$emailninthlineonetextpresent}                                                                                                                                          |
+|variable             |emailninthlinetwotextpresent                                                              |equals  to                                                                    |
+|verify page contains |//font[@color='Red']/b[contains(text(),'Reject/Rejected/No')]                             |element                                                                       |
+|assert true          |{$emailninthlinetwotextpresent}                                                                                                                                          |
+|variable             |emailtenthlinetextpresent                                                                 |equals  to                                                                    |
+|verify page contains |//td[contains(text(),'View CM Project')]                                                  |element                                                                       |
+|assert true          |{$emailtenthlinetextpresent}                                                                                                                                             |
+|variable             |emailtenthlinetextpresent                                                                 |equals  to                                                                    |
+|verify page contains |.//a[contains(text(),'Click')]                                                            |element                                                                       |
+|assert true          |{$emailtenthlinetextpresent}                                                                                                                                             |
+|log result           |{$emailfirstlinetextpresent}                                                              |with comment|verified the content of the email successfully|in page|email body|
+
+!|Scenario                |create new cm project request         |sheetname                                                                                                            |
+|add new cmproject request|@sheetname                                                                                                                                                  |
+|select cm record type                                                                                                                                                                 |
+|variable                 |isbuildinglookup                      |equals  to                                                                                                           |
+|wait  for  element       |{$CMPROJECTINFO.buildinglookup}                                                                                                                             |
+|assert true              |{$isbuildinglookup}                                                                                                                                         |
+|log result               |{$isbuildinglookup}                   |with comment     |CM Project edit page loaded succesfully                |in page                |CMProject edit page|
+|type                     |{$building}                           |into             |{$CMPROJECTINFO.buildinglookup}                        |text field                                 |
+|pause  execution  for    |3                                     |seconds                                                                                                              |
+|variable                 |isStatusDropdownPresent               |equals  to                                                                                                           |
+|verify page contains     |{$CMPROJECTINFO.status}               |element                                                                                                              |
+|assert true              |{$isStatusDropdownPresent}                                                                                                                                  |
+|select                   |{$status}                             |from             |{$CMPROJECTINFO.status}                                                                            |
+|variable                 |isWorkTypeDropdownPresent             |equals  to                                                                                                           |
+|verify page contains     |{$CMPROJECTINFO.worktype}             |element                                                                                                              |
+|assert true              |{$isWorkTypeDropdownPresent}                                                                                                                                |
+|select                   |{$worktype}                           |from             |{$CMPROJECTINFO.worktype}                                                                          |
+|pause  execution  for    |3                                     |seconds                                                                                                              |
+|variable                 |isOriginationDropdownPresent          |equals  to                                                                                                           |
+|wait  for  element       |{$CMPROJECTINFO.origination}                                                                                                                                |
+|select                   |{$origination}                        |from             |{$CMPROJECTINFO.origination}                                                                       |
+|pause  execution  for    |3                                     |seconds                                                                                                              |
+|variable                 |isTaskDropdownPresent                 |equals  to                                                                                                           |
+|wait  for  element       |{$CMPROJECTINFO.task}                                                                                                                                       |
+|select                   |{$task}                               |from             |{$CMPROJECTINFO.task}                                                                              |
+|pause  execution  for    |3                                     |seconds                                                                                                              |
+|variable                 |isCategoryDropdownPresent             |equals  to                                                                                                           |
+|wait  for  element       |{$CMPROJECTINFO.category}                                                                                                                                   |
+|select                   |{$category}                           |from             |{$CMPROJECTINFO.category}                                                                          |
+|type                     |testTenant                            |into             |.//*[@id='00N50000003L5hy']                            |text field                                 |
+|pause  execution  for    |5                                     |seconds                                                                                                              |
+|variable                 |isContractAgreementTypeDropdownPresent|equals  to                                                                                                           |
+|wait  for  element       |{$CMPROJECTINFO.contractagreementtype}                                                                                                                      |
+|select                   |{$contractagreementtype}              |from             |{$CMPROJECTINFO.contractagreementtype}                                                             |
+|pause  execution  for    |4                                     |seconds                                                                                                              |
+|type                     |{$budgetyear}                         |into             |.//label[text()='Budget Year']/../../../td[2]/div/input|text field                                 |
+|pause  execution  for    |3                                     |seconds                                                                                                              |
+|variable                 |isBudgetmonthDropdownPresent          |equals  to                                                                                                           |
+|wait  for  element       |{$KDATE.budgetmonth}                                                                                                                                        |
+|select                   |{$budgetmonth}                        |from             |{$KDATE.budgetmonth}                                                                               |
+|pause  execution  for    |2                                     |seconds                                                                                                              |
+|                         |type                                  |{$requestdate}   |into                                                   |{$KDATE.requestDate}   |text field         |
+|click                    |.//label[text()='Request Date']/../../../td[2]/div/span/span                                                                                                |
+|pause  execution  for    |2                                     |seconds                                                                                                              |
+|                         |type                                  |{$completiondate}|into                                                   |{$KDATE.completionDate}|text field         |
+|click                    |.//label[contains(text(),'Completion Date')]/../../../td[2]/div/span/span                                                                                   |
+|pause  execution  for    |2                                     |seconds                                                                                                              |
+|type                     |{$estimated}                          |into             |{$FINANCIALS.estimated}                                |text field                                 |
+|pause  execution  for    |3                                     |seconds                                                                                                              |
+|select                   |{$budgeted}                           |from             |//label[contains(text(),'Budget?')]/../../../td[2]/div/span/select                                 |
+|pause  execution  for    |2                                     |seconds                                                                                                              |
+|select                   |No                                    |from             |.//*[@id='00N38000003Xffq']                                                                        |
+|pause  execution  for    |2                                     |seconds                                                                                                              |
+|select the approvers                                                                                                                                                                  |
+|save the project                                                                                                                                                                      |
+
+!|Scenario         |verify approval request submitted                                                                           |
+|variable          |approvalstatusinprogressfieldPresent   |equals  to                                                          |
+|wait  for  element|{$CMPROJECTINFO.approvalstatusinprogress}                                                                   |
+|assert true       |{$approvalstatusinprogressfieldPresent}                                                                     |
+|log result        |{$approvalstatusinprogressfieldPresent}|with comment|approval status is in progress     |in page|CM Projects|
+|variable          |approvalrequestsubmittedfieldPresent   |equals  to                                                          |
+|wait  for  element|{$CMPROJECTAPPROVALHISTORYSECTION.approvalrequestsubmitted}                                                 |
+|assert true       |{$approvalrequestsubmittedfieldPresent}                                                                     |
+|log result        |{$approvalrequestsubmittedfieldPresent}|with comment|approval request has been submitted|in page|CM Projects|
+
+!|Scenario                 |verify approval status is approved                                                                      |
+|login to the Vereit module|${admin}                                                                                                |
+|select approved project                                                                                                            |
+|variable                  |approvalstatusapprovedfieldPresent   |equals  to                                                        |
+|wait  for  element        |{$CMPROJECTINFO.approvalstatusapproved}                                                                 |
+|assert true               |{$approvalstatusapprovedfieldPresent}                                                                   |
+|log result                |{$approvalstatusapprovedfieldPresent}|with comment|approval status has been approved|in page|CM Projects|
+|logout users                                                                                                                       |
+
+!|Scenario|verify attached bid review form                                      |
+|variable |ischromebrowser   |equals  to                                        |
+|verify   |${defaultBrowser} |with                      |chrome                 |
+|variable |isexplorerbrowser |equals  to                                        |
+|verify   |${defaultBrowser} |with                      |explorer               |
+|If       |{$ischromebrowser}                                                   |
+|read bid review form                                                           |
+|Else If  |{$isexplorerbrowser}                                                 |
+|read bid review form in explorer                                               |
+|End If                                                                         |

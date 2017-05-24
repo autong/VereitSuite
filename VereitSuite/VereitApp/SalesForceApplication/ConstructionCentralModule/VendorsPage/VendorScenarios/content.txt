@@ -1,0 +1,31 @@
+!|Scenario      |verify vendor name after project approval|bidvendor                                                                          |
+|If             |{$isprojectapproved}                                                                                                         |
+|variable       |vendorname                               |equals  to                                                                         |
+|get  text  from|{$VENDOR.name}                                                                                                               |
+|variable       |isvendornameequal                        |equals  to                                                                         |
+|assert         |{$vendorname}                            |equals      |@bidvendor                                                            |
+|log result     |isvendornameequal                        |with comment|vendor name is present in the approved project|in page|CM project page|
+
+!|Scenario            |add vendor                                                                                 |
+|read vendor details                                                                                              |
+|click                |{$VENDOR.vendortab}                                                                        |
+|pause  execution  for|5                         |seconds                                                         |
+|click                |{$VENDOR.newbtn}                                                                           |
+|pause  execution  for|5                         |seconds                                                         |
+|type                 |{$vendorname}             |into        |{$VENDOREDIT.name}             |text field         |
+|pause  execution  for|1                         |seconds                                                         |
+|select               |{$status}                 |from        |{$VENDOREDIT.status}                               |
+|pause  execution  for|1                         |seconds                                                         |
+|type                 |{$contact}                |into        |{$VENDOREDIT.contact}          |text field         |
+|pause  execution  for|1                         |seconds                                                         |
+|type                 |{$address}                |into        |{$VENDOREDIT.address}          |text field         |
+|pause  execution  for|1                         |seconds                                                         |
+|type                 |{$city}                   |into        |{$VENDOREDIT.city}             |text field         |
+|pause  execution  for|1                         |seconds                                                         |
+|type                 |{$zipcode}                |into        |{$VENDOREDIT.zipcode}          |text field         |
+|pause  execution  for|1                         |seconds                                                         |
+|click                |{$VENDOR.savebtn}                                                                          |
+|pause  execution  for|5                         |seconds                                                         |
+|variable             |isvendorsaved             |equals  to                                                      |
+|verify page contains |{$VENDOR.cmprojvendorname}|element                                                         |
+|log result           |{$isvendorsaved}          |with comment|Vendor got created successfully|in page|Vendor page|

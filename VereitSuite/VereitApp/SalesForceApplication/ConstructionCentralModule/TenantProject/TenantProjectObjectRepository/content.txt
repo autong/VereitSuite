@@ -1,0 +1,5 @@
+|Object Repository|TENANTPROJECT                           |
+|id               |value                             |type |
+|systeminfo       |.//h3[text()='System Information']|xpath|
+|editbtn          |(.//input[@title='Edit'])[2]      |xpath|
+|newbidbtn        |//input[@title='New Bid']         |xpath|

@@ -1,0 +1,9 @@
+!|Scenario      |read login data for vereit webmail|sheetname                                        |
+|load           |@sheetname                        |excel sheet from|{$DATASHEET.vereit}|in|read|Mode|
+|variable       |username                          |equals to                                        |
+|getFromExcelRow|2                                 |Column          |1                               |
+|variable       |password                          |equals  to                                       |
+|getFromExcelRow|2                                 |Column          |2                               |
+|variable       |url                               |equals to                                        |
+|getFromExcelRow|2                                 |Column          |3                               |
+

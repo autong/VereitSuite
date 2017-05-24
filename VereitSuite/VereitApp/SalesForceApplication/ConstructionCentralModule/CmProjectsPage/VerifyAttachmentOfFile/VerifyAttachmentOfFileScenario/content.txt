@@ -1,0 +1,27 @@
+!|Scenario            |attach a file            |filepath                                                     |
+|click                |//th[text()='Bid Name']/../../tr[2]/th[1]/a                                            |
+|pause  execution  for|3                        |seconds                                                      |
+|click                |//input[@value='Attach File']                                                          |
+|pause  execution  for|3                        |seconds                                                      |
+|upload  file         |@filepath                |by          |//input[@id='file']                             |
+|pause  execution  for|5                        |seconds                                                      |
+|click                |//input[@id='Attach']                                                                  |
+|pause  execution  for|5                        |seconds                                                      |
+|click                |//input[@title='Done']                                                                 |
+|pause  execution  for|3                        |seconds                                                      |
+|variable             |isattachment             |equals  to                                                   |
+|verify page contains |//th[text()='Attachment']|element                                                      |
+|assert true          |{$isattachment}                                                                        |
+|log result           |{$isattachment}          |with comment|file got attached to the bid|in page|bid section|
+|click                |{$BIDDETAILS.biddetailscmproject}                                                      |
+|pause  execution  for|10                       |seconds                                                      |
+
+!|Scenario             |verify attached file in the mail                                                   |
+|login to vereit webmail                                                                                   |
+|click                 |(//span[contains(text(),'Sandbox: Bid Approval')])[1]                              |
+|pause  execution  for |10               |seconds                                                          |
+|variable              |isattachedmail   |equals  to                                                       |
+|verify  page  contains|${fileName}      |text                                                             |
+|assert true           |{$isattachedmail}                                                                  |
+|log result            |{$isattachedmail}|with comment|file attached in the mail|in page|bid approval email|
+

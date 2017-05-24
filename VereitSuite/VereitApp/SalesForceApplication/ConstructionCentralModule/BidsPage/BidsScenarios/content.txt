@@ -1,0 +1,167 @@
+!|Scenario                 |create bids for cmproject|sheetname|
+|get the number of bids    |@sheetname                         |
+|associate bid to cmproject|@sheetname                         |
+|select bid for recommended vendor                             |
+
+!|Scenario            |navigate to bid creation                                                                                                                                                  |
+|verify bid section to create new bid                                                                                                                                                            |
+|add bid with bid name|{$bidbidname}|and contact name|{$bidcontactname}|and bid status|{$bidbidstatusdropdown}|and bid amount|{$bidbidamount}|and comments|{$bidcomments}|and vendor|{$bidvendor}|
+
+!|Scenario            |verify bid section to create new bid                                                   |
+|variable             |bidsectionheaderfieldPresent   |equals  to                                             |
+|wait  for  element   |{$BIDSSECTION.bidsectionlabel}                                                         |
+|assert true          |{$bidsectionheaderfieldPresent}                                                        |
+|log result           |{$bidsectionheaderfieldPresent}|with comment|bid section is present|in page|CM Projects|
+|pause  execution  for|5                              |seconds                                                |
+|click                |{$BIDSSECTION.newbidbtn}                                                               |
+|pause  execution  for|2                              |seconds                                                |
+
+!|Scenario            |generate bid and submit for approval              |
+|verify bid columns                                                      |
+|click                |{$CMPROJECTTOPBUTTONROW.generatebidsubmitapproval}|
+|pause  execution  for|30                    |seconds                    |
+|verify approval request submitted                                       |
+|logout users                                                            |
+
+!|Scenario            |select multiple recommended vendor                                                                                   |
+|click                |{$BIDEDIT.editsecbidbtn}                                                                                             |
+|pause  execution  for|3                  |seconds                                                                                          |
+|click                |{$BIDEDIT.recommvendorcbox}                                                                                          |
+|pause  execution  for|3                  |seconds                                                                                          |
+|click                |{$BIDEDIT.savebtn}                                                                                                   |
+|pause  execution  for|10                 |seconds                                                                                          |
+|variable             |errormsg           |equals  to                                                                                       |
+|verify page contains |{$BIDEDIT.errormsg}|element                                                                                          |
+|assert true          |{$errormsg}                                                                                                          |
+|log result           |{$errormsg}        |with comment|error msg:project can have only one bid has Recommended vendor|in page|bid edit page|
+|click                |{$BIDEDIT.cancelbtn}                                                                                                 |
+|pause  execution  for|5                  |seconds                                                                                          |
+
+!|Scenario         |verify bid columns                                                                                                     |
+|variable          |bidactioncolfieldPresent           |equals  to                                                                         |
+|wait  for  element|{$BIDSSECTIONCOLUMNVALIDATION.actioncol}                                                                               |
+|assert true       |{$bidactioncolfieldPresent}                                                                                            |
+|log result        |{$bidactioncolfieldPresent}        |with comment|bid action column is present        |in page|CM Projects - Bid Section|
+|variable          |bidnamecolfieldPresent             |equals  to                                                                         |
+|wait  for  element|{$BIDSSECTIONCOLUMNVALIDATION.bidnamecol}                                                                              |
+|assert true       |{$bidnamecolfieldPresent}                                                                                              |
+|log result        |{$bidnamecolfieldPresent}          |with comment|bid name column is present          |in page|CM Projects - Bid Section|
+|variable          |recommendedvendorcolfieldPresent   |equals  to                                                                         |
+|wait  for  element|{$BIDSSECTIONCOLUMNVALIDATION.recommendedvendorcol}                                                                    |
+|assert true       |{$recommendedvendorcolfieldPresent}                                                                                    |
+|log result        |{$recommendedvendorcolfieldPresent}|with comment|recommended vendor column is present|in page|CM Projects - Bid Section|
+|variable          |bidamountcolfieldPresent           |equals  to                                                                         |
+|wait  for  element|{$BIDSSECTIONCOLUMNVALIDATION.bidamountcol}                                                                            |
+|assert true       |{$bidamountcolfieldPresent}                                                                                            |
+|log result        |{$bidamountcolfieldPresent}        |with comment|bid amount column is present        |in page|CM Projects - Bid Section|
+|variable          |bidstatuscolfieldPresent           |equals  to                                                                         |
+|wait  for  element|{$BIDSSECTIONCOLUMNVALIDATION.bidstatuscol}                                                                            |
+|assert true       |{$bidstatuscolfieldPresent}                                                                                            |
+|log result        |{$bidstatuscolfieldPresent}        |with comment|bid status column is present        |in page|CM Projects - Bid Section|
+|variable          |commentscolfieldPresent            |equals  to                                                                         |
+|wait  for  element|{$BIDSSECTIONCOLUMNVALIDATION.commentscol}                                                                             |
+|assert true       |{$commentscolfieldPresent}                                                                                             |
+|log result        |{$commentscolfieldPresent}         |with comment|comments column is present          |in page|CM Projects - Bid Section|
+|variable          |vendorcolfieldPresent              |equals  to                                                                         |
+|wait  for  element|{$BIDSSECTIONCOLUMNVALIDATION.vendorcol}                                                                               |
+|assert true       |{$vendorcolfieldPresent}                                                                                               |
+|log result        |{$vendorcolfieldPresent}           |with comment|vendor column is present            |in page|CM Projects - Bid Section|
+|variable          |editlinkfieldPresent               |equals  to                                                                         |
+|wait  for  element|{$BIDSSECTIONCOLUMNVALIDATION.editlink}                                                                                |
+|assert true       |{$editlinkfieldPresent}                                                                                                |
+|log result        |{$editlinkfieldPresent}            |with comment|edit link is present                |in page|CM Projects - Bid Section|
+|variable          |dellinkfieldPresent                |equals  to                                                                         |
+|wait  for  element|{$BIDSSECTIONCOLUMNVALIDATION.dellink}                                                                                 |
+|assert true       |{$dellinkfieldPresent}                                                                                                 |
+|log result        |{$dellinkfieldPresent}             |with comment|del link is present                 |in page|CM Projects - Bid Section|
+
+!|Scenario            |add bid with bid name         |bidbidname  |and contact name          |bidcontactname|and bid status|bidbidstatusdropdown|and bid amount|bidbidamount|and comments|bidcomments|and vendor|bidvendor|
+|variable             |bidnamefieldPresent           |equals  to                                                                                                                                                          |
+|wait  for  element   |{$BIDEDIT.bidnametbox}                                                                                                                                                                             |
+|assert true          |{$bidnamefieldPresent}                                                                                                                                                                             |
+|log result           |{$bidnamefieldPresent}        |with comment|bid name is present       |in page       |Bids                                                                                                         |
+|type                 |@bidbidname                   |into        |{$BIDEDIT.bidnametbox}    |text field                                                                                                                  |
+|variable             |contactnametboxfieldPresent   |equals  to                                                                                                                                                          |
+|wait  for  element   |{$BIDEDIT.contactnametbox}                                                                                                                                                                         |
+|assert true          |{$contactnametboxfieldPresent}                                                                                                                                                                     |
+|log result           |{$contactnametboxfieldPresent}|with comment|contact name is present   |in page       |Bids                                                                                                         |
+|click                |{$BIDEDIT.contactnametbox}                                                                                                                                                                         |
+|pause  execution  for|5                             |seconds                                                                                                                                                             |
+|type                 |@bidcontactname               |into        |{$BIDEDIT.contactnametbox}|text field                                                                                                                  |
+|pause  execution  for|5                             |seconds                                                                                                                                                             |
+|variable             |bidamounttboxfieldPresent     |equals  to                                                                                                                                                          |
+|wait  for  element   |{$BIDEDIT.bidamounttbox}                                                                                                                                                                           |
+|assert true          |{$bidamounttboxfieldPresent}                                                                                                                                                                       |
+|log result           |{$bidamounttboxfieldPresent}  |with comment|bid amount is present     |in page       |Bids                                                                                                         |
+|click                |{$BIDEDIT.bidamounttbox}                                                                                                                                                                           |
+|type                 |@bidbidamount                 |into        |{$BIDEDIT.bidamounttbox}  |text field                                                                                                                  |
+|pause  execution  for|2                             |seconds                                                                                                                                                             |
+|variable             |commenttareafieldPresent      |equals  to                                                                                                                                                          |
+|wait  for  element   |{$BIDEDIT.commenttarea}                                                                                                                                                                            |
+|assert true          |{$commenttareafieldPresent}                                                                                                                                                                        |
+|log result           |{$commenttareafieldPresent}   |with comment|comment field is present  |in page       |Bids                                                                                                         |
+|type                 |@bidcomments                  |into        |{$BIDEDIT.commenttarea}   |text area                                                                                                                   |
+|pause  execution  for|4                             |seconds                                                                                                                                                             |
+|type                 |{$bidvendor}                  |into        |{$BIDEDIT.bidvendor}      |text field                                                                                                                  |
+|pause  execution  for|3                             |seconds                                                                                                                                                             |
+|variable             |vendortboxfieldPresent        |equals  to                                                                                                                                                          |
+|wait  for  element   |{$BIDEDIT.vendortbox}                                                                                                                                                                              |
+|assert true          |{$vendortboxfieldPresent}                                                                                                                                                                          |
+|log result           |{$vendortboxfieldPresent}     |with comment|vendor is present         |in page       |Bids                                                                                                         |
+|pause  execution  for|2                             |seconds                                                                                                                                                             |
+|variable             |bidsavebuttonPresent          |equals  to                                                                                                                                                          |
+|wait  for  element   |{$BIDEDIT.savebtn}                                                                                                                                                                                 |
+|assert true          |{$bidsavebuttonPresent}                                                                                                                                                                            |
+|log result           |{$bidsavebuttonPresent}       |with comment|save button is present    |in page       |Bids                                                                                                         |
+|click                |{$BIDEDIT.savebtn}                                                                                                                                                                                 |
+|pause  execution  for|10                            |seconds                                                                                                                                                             |
+|click                |{$BIDDETAILS.biddetailscmproject}                                                                                                                                                                  |
+|pause  execution  for|10                            |seconds                                                                                                                                                             |
+
+!|Scenario            |fetch vendor details                                         |
+|click                |{$VENDORDETAILS.lookup}                                      |
+|pause  execution  for|6               |seconds                                     |
+|switch to popup window                                                             |
+|pause  execution  for|6               |seconds                                     |
+|select               |id->searchFrame |frame                                       |
+|pause  execution  for|5               |seconds                                     |
+|type                 |{$bidvendor}    |into|{$VENDORDETAILS.searchfield}|text field|
+|pause  execution  for|5               |seconds                                     |
+|click                |{$VENDORDETAILS.gobutton}                                    |
+|pause  execution  for|5               |seconds                                     |
+|switch to popup window                                                             |
+|pause  execution  for|5               |seconds                                     |
+|select               |id->resultsFrame|frame                                       |
+|pause  execution  for|5               |seconds                                     |
+|click                |{$VENDORDETAILS.searchresult}                                |
+|switch to default window                                                           |
+
+!|Scenario            |select bid for recommended vendor                                                       |
+|click                |{$BIDEDIT.editbidbtn}                                                                   |
+|pause  execution  for|3                      |seconds                                                         |
+|click                |{$BIDEDIT.recommvendorcbox}                                                             |
+|pause  execution  for|3                      |seconds                                                         |
+|click                |{$BIDEDIT.savebtn}                                                                      |
+|pause  execution  for|10                     |seconds                                                         |
+|variable             |isrecvednor            |equals  to                                                      |
+|verify page contains |//img[@title='Checked']|element                                                         |
+|assert true          |{$isrecvednor}                                                                          |
+|log result           |{$isrecvednor}         |with comment|recommended vendor is selected|in page|bids section|
+
+!|Scenario            |delete the bid                                                   |
+|variable             |numofbidbefdel|equals  to                                        |
+|get  element  count  |//th[text()='Bid Name']/../../tr                                 |
+|click                |{$BIDEDIT.delsecbidbtn}                                          |
+|pause  execution  for|3             |seconds                                           |
+|variable             |ispopup       |equals  to                                        |
+|verify  popup  is    |visible                                                          |
+|assert true          |{$ispopup}                                                       |
+|log result           |{$ispopup}    |with comment|delete bid pop up|in page|Bid view   |
+|popup  action        |ok                                                               |
+|pause  execution  for|5             |seconds                                           |
+|variable             |numofbidaftdel|equals  to                                        |
+|get  element  count  |//th[text()='Bid Name']/../../tr                                 |
+|variable             |biddiff       |equals  to                                        |
+|show                 |evaluate      |'{$numofbidaftdel}<{$numofbidbefdel}'             |
+|assert true          |{$biddiff}                                                       |
+|log result           |{$biddiff}    |with comment|bid got deleted  |in page|bid section|
